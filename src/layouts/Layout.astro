@@ -1,0 +1,294 @@
+---                             
+import '../styles/global.css'
+
+interface Product {
+  name: string;
+  description?: string;
+  shortDescription?: string;
+  price?: number;
+  oldPrice?: number;
+  currency?: string;
+  category?: string;
+  images?: string[];
+  rating?: number;
+  reviews?: number;
+  stock?: number;
+  sku?: string;
+  slug?: string;
+}
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+
+  locale?: string;
+  dir?: "ltr" | "rtl";
+
+  type?: "website" | "product" | "article";
+
+  noindex?: boolean;
+
+  product?: Product;
+
+  breadcrumbs?: {
+    name: string;
+    url: string;
+  }[];
+}
+
+const {
+  title = "SHOP.",
+  description = "Discover our latest products and collections.",
+  image = "/og-image.jpg",
+  canonical,
+
+  locale = "en_US",
+  dir = "ltr",
+
+  type = "website",
+
+  noindex = false,
+
+  product,
+
+  breadcrumbs = [],
+} = Astro.props;
+
+
+// --------------------------------------------------
+// SITE CONFIG
+// --------------------------------------------------
+
+const siteName = "SHOP.";
+
+const siteUrl = "https://example.com";
+
+const fullCanonical =
+  canonical ?? new URL(Astro.url.pathname, siteUrl).toString();
+
+const fullImage =
+  image.startsWith("http")
+    ? image
+    : new URL(image, siteUrl).toString();
+
+
+// --------------------------------------------------
+// PRODUCT DATA
+// --------------------------------------------------
+
+const productTitle = product
+  ? `${product.name} | ${siteName}`
+  : title;
+
+const productDescription =
+  product?.shortDescription ??
+  product?.description ??
+  description;
+
+const productImage =
+  product?.images?.[0] ?? image;
+
+const fullProductImage =
+  productImage.startsWith("http")
+    ? productImage
+    : new URL(productImage, siteUrl).toString();
+
+
+// --------------------------------------------------
+// JSON-LD
+// --------------------------------------------------
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+
+  name: siteName,
+
+  url: siteUrl,
+
+  logo: `${siteUrl}/logo.png`,
+
+  sameAs: [
+    "https://www.facebook.com/yourstore",
+    "https://www.instagram.com/yourstore",
+    "https://www.tiktok.com/@yourstore",
+  ],
+};
+
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+
+  name: siteName,
+
+  url: siteUrl,
+
+  potentialAction: {
+    "@type": "SearchAction",
+
+    target: {
+      "@type": "EntryPoint",
+
+      urlTemplate:
+        `${siteUrl}/shop?search={search_term_string}`,
+    },
+
+    "query-input":
+      "required name=search_term_string",
+  },
+};
+
+
+const productSchema = product
+  ? {
+      "@context": "https://schema.org",
+
+      "@type": "Product",
+
+      name: product.name,
+
+      description:
+        product.description ??
+        product.shortDescription,
+
+      image:
+        product.images?.map((img) =>
+          img.startsWith("http")
+            ? img
+            : new URL(img, siteUrl).toString()
+        ),
+
+      sku: product.sku,
+
+      category: product.category,
+
+      url: fullCanonical,
+
+      ...(product.rating && product.reviews
+        ? {
+            aggregateRating: {
+              "@type": "AggregateRating",
+
+              ratingValue: product.rating,
+
+              reviewCount: product.reviews,
+            },
+          }
+        : {}),
+
+      offers: {
+        "@type": "Offer",
+
+        url: fullCanonical,
+
+        priceCurrency:
+          product.currency ?? "USD",
+
+        price: product.price,
+
+        availability:
+          product.stock && product.stock > 0
+            ? "https://schema.org/InStock"
+            : "https://schema.org/OutOfStock",
+
+        itemCondition:
+          "https://schema.org/NewCondition",
+
+        seller: {
+          "@type": "Organization",
+          name: siteName,
+        },
+      },
+    }
+  : null;
+
+
+const breadcrumbSchema =
+  breadcrumbs.length > 0 ? {
+    "@context": "https://schema.org",
+
+    "@type": "BreadcrumbList",
+
+    itemListElement:
+      breadcrumbs.map((item, index) => ({
+        "@type": "ListItem",
+
+        position: index + 1,
+
+        name: item.name,
+
+        item: item.url.startsWith("http")
+          ? item.url
+          : new URL(item.url, siteUrl).toString(),
+      })),
+    }
+  : null;
+
+--- 
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href=`${import.meta.env.BASE_URL}favicon.ico` />
+		<meta name="generator" content={Astro.generator} />
+
+    <title>{product ? productTitle : title}</title>
+    <meta name="description" content={product ? productDescription : description}/>
+    <meta name="robots" content={ noindex ? "noindex,nofollow" : "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"} />
+    <link rel="canonical" href={fullCanonical} />
+    <!-- THEME -->
+    <meta name="theme-color" content="#ffffff"/>
+    <meta name="color-scheme" content="light"/>
+    <!-- OPEN GRAPH -->
+    <meta property="og:type" content={product ? "product" : type}/>
+    <meta property="og:title" content={product ? productTitle : title} />
+    <meta property="og:description" content={product ? productDescription : description} />
+    <meta property="og:url" content={fullCanonical}/>
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content={locale} />
+    <meta property="og:image" content={ product ? fullProductImage : fullImage }/>
+    <meta property="og:image:alt" content={product?.name ?? title}/>
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <!-- PRODUCT OG -->
+    {product && (
+      <><meta property="product:price:amount" content={String(product.price)}/>
+        <meta property="product:price:currency" content={product.currency ?? "USD"}/>
+        <meta property="product:availability" content={ product.stock && product.stock > 0 ? "in stock" : "out of stock" }/>
+        {product.category && ( <meta property="product:category" content={product.category}/> )}
+      </>
+    )}
+    <!-- TWITTER / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={product ? productTitle : title}/>
+    <meta name="twitter:description" content={product ? productDescription : description} />
+    <meta name="twitter:image" content={ product ? fullProductImage : fullImage } />
+    <meta name="twitter:image:alt" content={product?.name ?? title} /> 
+    <!-- MOBILE / BROWSER -->
+    <meta name="mobile-web-app-capable" content="yes" /> 
+    <meta name="apple-mobile-web-app-capable" content="yes" /> 
+    <meta name="apple-mobile-web-app-title" content={siteName} /> 
+    <!-- GEO -->
+    <meta name="geo.region" content="MA" /> 
+    <meta name="geo.placename" content="Morocco" /> 
+    <!-- HREFLANG -->
+    <link rel="alternate" hreflang="en" href={`${siteUrl}/en${Astro.url.pathname}`} /> 
+    <link rel="alternate" hreflang="fr" href={`${siteUrl}/fr${Astro.url.pathname}`} /> 
+    <link rel="alternate" hreflang="ar" href={`${siteUrl}/ar${Astro.url.pathname}`} /> 
+    <link rel="alternate" hreflang="x-default" href={`${siteUrl}${Astro.url.pathname}`} /> 
+    <!-- JSON-LD -->
+    <!-- <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} /> 
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} /> 
+    {productSchema && ( <script type="application/ld+json" set:html={JSON.stringify(productSchema)} /> )} 
+    {breadcrumbSchema && ( <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} /> )} -->
+	</head>
+	<body class="flex flex-col items-center min-h-screen">
+		<slot />
+	</body>
+</html>
