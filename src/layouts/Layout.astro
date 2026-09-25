@@ -65,35 +65,17 @@ const siteName = "SHOP.";
 
 const siteUrl = "https://example.com";
 
-const fullCanonical =
-  canonical ?? new URL(Astro.url.pathname, siteUrl).toString();
+const fullCanonical = canonical ?? new URL(Astro.url.pathname, siteUrl).toString();
 
-const fullImage =
-  image.startsWith("http")
-    ? image
-    : new URL(image, siteUrl).toString();
+const fullImage = image.startsWith("http") ? image : `${import.meta.env.BASE_URL}${image}`;
 
+const productTitle = product ? `${product.name} | ${siteName}` : title;
 
-// --------------------------------------------------
-// PRODUCT DATA
-// --------------------------------------------------
+const productDescription = product?.shortDescription ?? product?.description ?? description;
 
-const productTitle = product
-  ? `${product.name} | ${siteName}`
-  : title;
+const productImage = product?.images?.[0] ?? image;
 
-const productDescription =
-  product?.shortDescription ??
-  product?.description ??
-  description;
-
-const productImage =
-  product?.images?.[0] ?? image;
-
-const fullProductImage =
-  productImage.startsWith("http")
-    ? productImage
-    : new URL(productImage, siteUrl).toString();
+const fullProductImage = productImage.startsWith("http") ? productImage : `${import.meta.env.BASE_URL}${productImage}`;
 
 
 // --------------------------------------------------
