@@ -245,7 +245,7 @@ const sp = search ? products.filter((product) => {
               >
 
                 <img
-                  src={product.images[0]}
+                  src={`${import.meta.env.BASE_URL}${product.images[0]}`}
                   alt={product.name}
                   loading="lazy"
                   class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
