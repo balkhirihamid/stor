@@ -1,518 +1,806 @@
 export const info = {
   name: "TENDER",
   description: "A curated selection of high-quality products across various categories.", 
-};
-
+}
 export const products = [
   {
-    id: 1,
-    name: "4MP Outdoor IP Security Camera",
-    slug: "4mp-outdoor-ip-security-camera",
-    category: "Camera",
-    price: 89.99,
-    oldPrice: 109.99,
-    currency: "USD",
-
-    rating: 4.8,
-    reviews: 142,
-
-    stock: 24,
-    sku: "CAM-001",
-
-    description:
-      "A professional 4MP outdoor IP security camera designed for reliable day and night surveillance. It features high-resolution video, infrared night vision and weather-resistant construction for residential and commercial installations.",
-
-    shortDescription:
-      "4MP outdoor IP camera with infrared night vision and weather-resistant design.",
-
-    features: [
-      "4MP high-resolution video",
-      "Infrared night vision",
-      "Outdoor weather-resistant housing",
-      "Wide viewing angle",
-      "Motion detection",
-      "Network connectivity",
-    ],
-
-    colors: [
-      {
-        name: "White",
-        value: "#ffffff",
-      },
-      {
-        name: "Black",
-        value: "#111827",
-      },
-    ],
-
-    sizes: ["Standard"],
-
-    images: [
-      "https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=1200",
-      "https://images.unsplash.com/photo-1516321165247-4aa89a48be28?w=1200",
-      "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1200",
-    ],
-
-    tags: ["camera", "ip-camera", "security", "surveillance", "outdoor"],
+    "id": "knight",
+    "name": "knight camera 📸",
+    "slug": "knight camera 📸",
+    "category": "Extérieur",
+    "price": 1500.0,
+    "oldPrice": 1500.0,
+    "currency": "USD",
+    "rating": 4.8,
+    "reviews": 104,
+    "stock": 15,
+    "sku": "knight-knight camera 📸",
+    "description": "camera étanche extérieur avec batterie 🔋 et flash ",
+    "shortDescription": "camera étanche extérieur avec batterie 🔋 et flash ",
+    "features": ["8 IP camera channels", "4K video recording", "H.265 video compression", "Remote viewing", "Motion detection", "Hard drive recording support"],
+    "colors": [],
+    "sizes": ["8 Channel"],
+    "images": ["https://picsum.photos/seed/knight/800/800"],
+    "tags": ["camera", " flash"]
   },
-
   {
-    id: 2,
-    name: "8MP 4K PTZ Security Camera",
-    slug: "8mp-4k-ptz-security-camera",
-    category: "Camera",
-    price: 249.99,
-    oldPrice: 299.99,
-    currency: "USD",
-
-    rating: 4.9,
-    reviews: 87,
-
-    stock: 12,
-    sku: "CAM-002",
-
-    description:
-      "A high-performance 8MP 4K PTZ security camera designed for advanced surveillance applications. The motorized pan, tilt and zoom system provides flexible monitoring of large areas while maintaining detailed image quality.",
-
-    shortDescription:
-      "8MP 4K PTZ camera with motorized pan, tilt and zoom for large-area surveillance.",
-
-    features: [
-      "8MP 4K ultra HD video",
-      "Motorized pan and tilt",
-      "Optical zoom",
-      "Infrared night vision",
-      "Motion tracking",
-      "Remote network access",
-    ],
-
-    colors: [
-      {
-        name: "White",
-        value: "#ffffff",
-      },
-      {
-        name: "Black",
-        value: "#111827",
-      },
-    ],
-
-    sizes: ["Standard"],
-
-    images: [
-      "https://images.unsplash.com/photo-1524143986875-3b098d78b363?w=1200",
-      "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1200",
-      "https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=1200",
-    ],
-
-    tags: ["camera", "ptz", "4k", "security", "surveillance"],
+    "id": "i6",
+    "name": "camera étanche",
+    "slug": "camera étanche",
+    "category": "Etanche",
+    "price": 1350.0,
+    "oldPrice": 1350.0,
+    "currency": "USD",
+    "rating": 4.8,
+    "reviews": 104,
+    "stock": 15,
+    "sku": "i6-camera étanche",
+    "description": "camera dahua 5 MP PTZ IP ",
+    "shortDescription": "camera dahua 5 MP PTZ IP ",
+    "features": ["8 IP camera channels", "4K video recording", "H.265 video compression", "Remote viewing", "Motion detection", "Hard drive recording support"],
+    "colors": [{"name": "unknown", "value": "#FBF3EDFF"}],
+    "sizes": ["8 Channel"],
+    "images": ["https://picsum.photos/seed/i6/800/800"],
+    "tags": ["dahua", " imou", " réseau"]
   },
-
-  // =========================
-  // DVR
-  // =========================
-
   {
-    id: 3,
-    name: "8 Channel Full HD DVR",
-    slug: "8-channel-full-hd-dvr",
-    category: "DVR",
-    price: 119.99,
-    oldPrice: 139.99,
-    currency: "USD",
-
-    rating: 4.7,
-    reviews: 96,
-
-    stock: 18,
-    sku: "DVR-001",
-
-    description:
-      "An 8-channel digital video recorder designed for professional CCTV surveillance systems. It supports multiple camera inputs, local recording, playback and remote monitoring through a network connection.",
-
-    shortDescription:
-      "8-channel DVR for reliable CCTV recording, playback and remote monitoring.",
-
-    features: [
-      "8 camera channels",
-      "Full HD recording",
-      "H.265 video compression",
-      "Motion detection recording",
-      "Remote mobile monitoring",
-      "USB backup support",
-    ],
-
-    colors: [
-      {
-        name: "Black",
-        value: "#111827",
-      },
-    ],
-
-    sizes: ["8 Channel"],
-
-    images: [
-      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200",
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200",
-      "https://images.unsplash.com/photo-1597852074816-d933c7d2b988?w=1200",
-    ],
-
-    tags: ["dvr", "cctv", "recorder", "security", "surveillance"],
+    "id": "imou_ptz",
+    "name": "camera imou I67 PTZ ",
+    "slug": "camera imou I67 PTZ ",
+    "category": null,
+    "price": 1500.0,
+    "oldPrice": 1500.0,
+    "currency": "USD",
+    "rating": 4.8,
+    "reviews": 104,
+    "stock": 15,
+    "sku": "imou_ptz-camera imou I67 PTZ ",
+    "description": "La caméra AOV PT utilise la technologie de pointe Always-on Video (AOV) d’IMOU qui permet à la caméra d’enregistrer une image toutes les 2 secondes pour économiser la mémoire ",
+    "shortDescription": "La caméra AOV PT utilise la technologie de pointe Always-on Video (AOV) d’IMOU qui permet à la caméra d’enregistrer une image toutes les 2 secondes pour économiser la mémoire ",
+    "features": ["8 IP camera channels", "4K video recording", "H.265 video compression", "Remote viewing", "Motion detection", "Hard drive recording support"],
+    "colors": [{"name": "unknown", "value": "#ffffffff"}, {"name": "unknown", "value": "#171717FF"}],
+    "sizes": ["8 Channel"],
+    "images": ["https://picsum.photos/seed/imou_ptz/800/800"],
+    "tags": ["camera", " dahua"]
   },
-
   {
-    id: 4,
-    name: "16 Channel 5MP Hybrid DVR",
-    slug: "16-channel-5mp-hybrid-dvr",
-    category: "DVR",
-    price: 219.99,
-    oldPrice: 259.99,
-    currency: "USD",
-
-    rating: 4.8,
-    reviews: 71,
-
-    stock: 10,
-    sku: "DVR-002",
-
-    description:
-      "A 16-channel hybrid DVR designed for medium and large CCTV installations. It supports high-resolution recording, multiple camera technologies and remote access for convenient surveillance management.",
-
-    shortDescription:
-      "16-channel hybrid DVR supporting high-resolution CCTV recording and remote access.",
-
-    features: [
-      "16 camera channels",
-      "Up to 5MP recording",
-      "Hybrid camera support",
-      "H.265 compression",
-      "Smart motion detection",
-      "Remote smartphone access",
-    ],
-
-    colors: [
-      {
-        name: "Black",
-        value: "#111827",
-      },
-    ],
-
-    sizes: ["16 Channel"],
-
-    images: [
-      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200",
-      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200",
-      "https://images.unsplash.com/photo-1597852074816-d933c7d2b988?w=1200",
-    ],
-
-    tags: ["dvr", "hybrid-dvr", "cctv", "recorder", "security"],
+    "id": "cell_go",
+    "name": "Cell Go full color",
+    "slug": "Cell Go full color",
+    "category": "Etanche",
+    "price": 1600.0,
+    "oldPrice": 1600.0,
+    "currency": "USD",
+    "rating": 4.8,
+    "reviews": 104,
+    "stock": 15,
+    "sku": "cell_go-Cell Go full color",
+    "description": "Avec son objectif de 3 Mégapixels, la Cell Go Full Color vous permet de voir tous chaque détail avec une netteté incroyable.",
+    "shortDescription": "Avec son objectif de 3 Mégapixels, la Cell Go Full Color vous permet de voir tous chaque détail avec une netteté incroyable.",
+    "features": ["8 IP camera channels", "4K video recording", "H.265 video compression", "Remote viewing", "Motion detection", "Hard drive recording support"],
+    "colors": [{"name": "unknown", "value": "#ffffffff"}, {"name": "unknown", "value": "#806B95FF"}],
+    "sizes": ["8 Channel"],
+    "images": ["https://picsum.photos/seed/cell_go/800/800"],
+    "tags": ["null"]
   },
-
-  // =========================
-  // NETWORK SWITCHES
-  // =========================
-
   {
-    id: 5,
-    name: "8 Port Gigabit PoE Switch",
-    slug: "8-port-gigabit-poe-switch",
-    category: "Switch",
-    price: 79.99,
-    oldPrice: 99.99,
-    currency: "USD",
-
-    rating: 4.8,
-    reviews: 118,
-
-    stock: 32,
-    sku: "SWT-001",
-
-    description:
-      "An 8-port Gigabit PoE network switch designed for IP cameras, access points and other network devices. It combines data connectivity and power delivery in a compact and reliable solution.",
-
-    shortDescription:
-      "8-port Gigabit PoE switch for IP cameras and network devices.",
-
-    features: [
-      "8 Gigabit Ethernet ports",
-      "PoE power delivery",
-      "Plug and play installation",
-      "High-speed data transfer",
-      "LED status indicators",
-      "Compact metal housing",
-    ],
-
-    colors: [
-      {
-        name: "Black",
-        value: "#111827",
-      },
-    ],
-
-    sizes: ["8 Port"],
-
-    images: [
-      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200",
-      "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=1200",
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200",
-    ],
-
-    tags: ["switch", "poe", "gigabit", "network", "ethernet"],
+    "id": "cruiser_Z_12",
+    "name": "cruiser zoom X12 fois",
+    "slug": "cruiser zoom X12 fois",
+    "category": "sécurité",
+    "price": 1800.0,
+    "oldPrice": 1800.0,
+    "currency": "USD",
+    "rating": 4.8,
+    "reviews": 104,
+    "stock": 15,
+    "sku": "cruiser_Z_12-cruiser zoom X12 fois",
+    "description": "camera réseau imou ptz zoom x12",
+    "shortDescription": "camera réseau imou ptz zoom x12",
+    "features": ["8 IP camera channels", "4K video recording", "H.265 video compression", "Remote viewing", "Motion detection", "Hard drive recording support"],
+    "colors": [{"name": "unknown", "value": "#DCDCDCFF"}, {"name": "unknown", "value": "#000000FF"}],
+    "sizes": ["8 Channel"],
+    "images": ["https://picsum.photos/seed/cruiser_Z_12/800/800"],
+    "tags": ["null"]
   },
-
   {
-    id: 6,
-    name: "24 Port Gigabit Managed PoE Switch",
-    slug: "24-port-gigabit-managed-poe-switch",
-    category: "Switch",
-    price: 349.99,
-    oldPrice: 399.99,
-    currency: "USD",
-
-    rating: 4.9,
-    reviews: 63,
-
-    stock: 8,
-    sku: "SWT-002",
-
-    description:
-      "A professional 24-port managed Gigabit PoE switch designed for enterprise networks and large IP surveillance systems. It provides centralized network management, reliable PoE power delivery and high-speed connectivity.",
-
-    shortDescription:
-      "24-port managed Gigabit PoE switch for enterprise networks and IP surveillance.",
-
-    features: [
-      "24 Gigabit Ethernet ports",
-      "Managed network configuration",
-      "PoE power delivery",
-      "VLAN support",
-      "High-speed uplink ports",
-      "Rack-mountable metal chassis",
-    ],
-
-    colors: [
-      {
-        name: "Black",
-        value: "#111827",
-      },
-    ],
-
-    sizes: ["24 Port"],
-
-    images: [
-      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200",
-      "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=1200",
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200",
-    ],
-
-    tags: ["switch", "managed-switch", "poe", "gigabit", "network"],
+    "id": "rex",
+    "name": "Rex camera 360°",
+    "slug": "Rex camera 360°",
+    "category": "Maison",
+    "price": 800.0,
+    "oldPrice": 800.0,
+    "currency": "USD",
+    "rating": 4.8,
+    "reviews": 104,
+    "stock": 15,
+    "sku": "rex-Rex camera 360°",
+    "description": "Résolution d'image 3K QHD | Rotation panoramique et verticale | Détection de personnes | Suivi intelligent | Détection de sons anormaux | Appel vidéo | Batterie de secours intégrée",
+    "shortDescription": "Résolution d'image 3K QHD | Rotation panoramique et verticale | Détection de personnes | Suivi intelligent | Détection de sons anormaux | Appel vidéo | Batterie de secours intégrée",
+    "features": ["8 IP camera channels", "4K video recording", "H.265 video compression", "Remote viewing", "Motion detection", "Hard drive recording support"],
+    "colors": [{"name": "unknown", "value": "#000000ff"}, {"name": "unknown", "value": "#E1E1E1FF"}, {"name": "unknown", "value": "#7EE1C6FF"}, {"name": "unknown", "value": "#0E624BFF"}, {"name": "unknown", "value": "#240E62FF"}],
+    "sizes": ["8 Channel"],
+    "images": ["https://picsum.photos/seed/rex/800/800"],
+    "tags": ["null"]
   },
-
-  // =========================
-  // NVR
-  // =========================
-
   {
-    id: 7,
-    name: "8 Channel 4K Network Video Recorder",
-    slug: "8-channel-4k-network-video-recorder",
-    category: "NVR",
-    price: 179.99,
-    oldPrice: 209.99,
-    currency: "USD",
-
-    rating: 4.8,
-    reviews: 104,
-
-    stock: 15,
-    sku: "NVR-001",
-
-    description:
-      "An 8-channel 4K network video recorder designed for IP surveillance systems. It provides centralized recording, playback and management of network cameras with support for high-resolution video.",
-
-    shortDescription:
-      "8-channel 4K NVR for IP camera recording and centralized surveillance management.",
-
-    features: [
-      "8 IP camera channels",
-      "4K video recording",
-      "H.265 video compression",
-      "Remote viewing",
-      "Motion detection",
-      "Hard drive recording support",
-    ],
-
-    colors: [
-      {
-        name: "Black",
-        value: "#111827",
-      },
-    ],
-
-    sizes: ["8 Channel"],
-
-    images: [
-      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200",
-      "https://images.unsplash.com/photo-1597852074816-d933c7d2b988?w=1200",
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200",
-    ],
-
-    tags: ["nvr", "ip-camera", "4k", "recorder", "surveillance"],
+    "id": "imou_2C",
+    "name": "Bullet 3",
+    "slug": "Bullet 3",
+    "category": "Extérieur",
+    "price": 400.0,
+    "oldPrice": 400.0,
+    "currency": "USD",
+    "rating": 4.8,
+    "reviews": 104,
+    "stock": 15,
+    "sku": "imou_2C-Bullet 3",
+    "description": "5MP 3K Image | Supports Wi-Fi 6 Connection | Smart Full-color Night Vision | AI Human & Vehicle Detection",
+    "shortDescription": "5MP 3K Image | Supports Wi-Fi 6 Connection | Smart Full-color Night Vision | AI Human & Vehicle Detection",
+    "features": ["8 IP camera channels", "4K video recording", "H.265 video compression", "Remote viewing", "Motion detection", "Hard drive recording support"],
+    "colors": [{"name": "unknown", "value": "#F0F0F0FF"}],
+    "sizes": ["8 Channel"],
+    "images": ["https://picsum.photos/seed/imou_2C/800/800"],
+    "tags": ["null"]
   },
-
   {
-    id: 8,
-    name: "32 Channel 4K Enterprise NVR",
-    slug: "32-channel-4k-enterprise-nvr",
-    category: "NVR",
-    price: 499.99,
-    oldPrice: 579.99,
-    currency: "USD",
-
-    rating: 4.9,
-    reviews: 48,
-
-    stock: 6,
-    sku: "NVR-002",
-
-    description:
-      "A powerful 32-channel enterprise network video recorder designed for large-scale IP surveillance installations. It provides high-capacity recording, advanced camera management and reliable remote monitoring.",
-
-    shortDescription:
-      "32-channel enterprise NVR for large-scale 4K IP surveillance systems.",
-
-    features: [
-      "32 IP camera channels",
-      "4K ultra HD recording",
-      "H.265+ compression",
-      "Multiple hard drive support",
-      "Advanced camera management",
-      "Remote monitoring and playback",
-    ],
-
-    colors: [
-      {
-        name: "Black",
-        value: "#111827",
-      },
-    ],
-
-    sizes: ["32 Channel"],
-
-    images: [
-      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200",
-      "https://images.unsplash.com/photo-1597852074816-d933c7d2b988?w=1200",
-      "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=1200",
-    ],
-
-    tags: ["nvr", "enterprise", "4k", "ip-surveillance", "recorder"],
+    "id": "ranger",
+    "name": "imou ranger dual",
+    "slug": "imou ranger dual",
+    "category": "Maison",
+    "price": 700.0,
+    "oldPrice": 700.0,
+    "currency": "USD",
+    "rating": 4.8,
+    "reviews": 104,
+    "stock": 15,
+    "sku": "ranger-imou ranger dual",
+    "description": "camera surveillance wifi double caméra 6 MP",
+    "shortDescription": "camera surveillance wifi double caméra 6 MP",
+    "features": ["8 IP camera channels", "4K video recording", "H.265 video compression", "Remote viewing", "Motion detection", "Hard drive recording support"],
+    "colors": [{"name": "unknown", "value": "#E7E7E7FF"}],
+    "sizes": ["8 Channel"],
+    "images": ["https://picsum.photos/seed/ranger/800/800"],
+    "tags": ["null"]
   },
-
-  // =========================
-  // NAS SERVER
-  // =========================
-
   {
-    id: 9,
-    name: "2 Bay Network Attached Storage Server",
-    slug: "2-bay-network-attached-storage-server",
-    category: "NAS Server",
-    price: 289.99,
-    oldPrice: 329.99,
-    currency: "USD",
-
-    rating: 4.7,
-    reviews: 92,
-
-    stock: 11,
-    sku: "NAS-001",
-
-    description:
-      "A compact 2-bay NAS server designed for centralized file storage, backups and private cloud applications. It provides reliable network storage for homes, small businesses and professional users.",
-
-    shortDescription:
-      "Compact 2-bay NAS server for centralized storage, backup and private cloud.",
-
-    features: [
-      "2 drive bays",
-      "Network file sharing",
-      "Automatic backup support",
-      "Private cloud functionality",
-      "RAID storage support",
-      "Gigabit Ethernet connectivity",
-    ],
-
-    colors: [
-      {
-        name: "White",
-        value: "#ffffff",
-      },
-      {
-        name: "Black",
-        value: "#111827",
-      },
-    ],
-
-    sizes: ["2 Bay"],
-
-    images: [
-      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200",
-      "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=1200",
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200",
-    ],
-
-    tags: ["nas", "nas-server", "storage", "backup", "network-storage"],
+    "id": "Cruiser_Dual",
+    "name": "Cruiser Dual",
+    "slug": "Cruiser Dual",
+    "category": "Extérieur",
+    "price": 1200.0,
+    "oldPrice": 1200.0,
+    "currency": "USD",
+    "rating": 4.8,
+    "reviews": 104,
+    "stock": 15,
+    "sku": "Cruiser_Dual-Cruiser Dual",
+    "description": "5+5MP Camera | Smart Full-color Night Vision | Wide View Dual Lens | IMOU SENSE™ Dual-channel Human & Vehicle Detection",
+    "shortDescription": "5+5MP Camera | Smart Full-color Night Vision | Wide View Dual Lens | IMOU SENSE™ Dual-channel Human & Vehicle Detection",
+    "features": ["8 IP camera channels", "4K video recording", "H.265 video compression", "Remote viewing", "Motion detection", "Hard drive recording support"],
+    "colors": [{"name": "unknown", "value": "#F4F4F4FF"}, {"name": "unknown", "value": "#181818FF"}],
+    "sizes": ["8 Channel"],
+    "images": ["https://picsum.photos/seed/Cruiser_Dual/800/800"],
+    "tags": ["null"]
   },
-
   {
-    id: 10,
-    name: "4 Bay Business NAS Server",
-    slug: "4-bay-business-nas-server",
-    category: "NAS Server",
-    price: 649.99,
-    oldPrice: 749.99,
-    currency: "USD",
-
-    rating: 4.9,
-    reviews: 57,
-
-    stock: 7,
-    sku: "NAS-002",
-
-    description:
-      "A high-performance 4-bay NAS server designed for businesses that require centralized storage, data protection and reliable backup solutions. It provides multiple drive configurations and fast network connectivity.",
-
-    shortDescription:
-      "High-performance 4-bay NAS server for business storage, backup and data protection.",
-
-    features: [
-      "4 drive bays",
-      "RAID storage configurations",
-      "High-speed network connectivity",
-      "Centralized file management",
-      "Automatic backup support",
-      "Private cloud applications",
-    ],
-
-    colors: [
-      {
-        name: "Black",
-        value: "#111827",
-      },
-      {
-        name: "Silver",
-        value: "#d1d5db",
-      },
-    ],
-
-    sizes: ["4 Bay"],
-
-    images: [
-      "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=1200",
-      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200",
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200",
-    ],
-
-    tags: ["nas", "nas-server", "business", "storage", "backup", "raid"],
+    "id": "versa",
+    "name": "camera versa",
+    "slug": "camera versa",
+    "category": "new",
+    "price": 800.0,
+    "oldPrice": 800.0,
+    "currency": "USD",
+    "rating": 4.8,
+    "reviews": 104,
+    "stock": 15,
+    "sku": "versa-camera versa",
+    "description": "Montaje sencillo | Visión nocturna con color inteligente | Resistente a la intemperie IP65 | Foco integrado | Sirena de 110dB",
+    "shortDescription": "Montaje sencillo | Visión nocturna con color inteligente | Resistente a la intemperie IP65 | Foco integrado | Sirena de 110dB",
+    "features": ["8 IP camera channels", "4K video recording", "H.265 video compression", "Remote viewing", "Motion detection", "Hard drive recording support"],
+    "colors": [{"name": "unknown", "value": "#F4F4F4FF"}, {"name": "unknown", "value": "#1B1B1BFF"}, {"name": "unknown", "value": "#00028AFF"}, {"name": "unknown", "value": "#BB75B1FF"}],
+    "sizes": ["8 Channel"],
+    "images": ["https://picsum.photos/seed/versa/800/800"],
+    "tags": ["null"]
   },
-];
+  {
+    "id": "ranger_rc",
+    "name": "Ranger RC",
+    "slug": "Ranger RC",
+    "category": "Maison",
+    "price": 450.0,
+    "oldPrice": 450.0,
+    "currency": "USD",
+    "rating": 4.8,
+    "reviews": 104,
+    "stock": 15,
+    "sku": "ranger_rc-Ranger RC",
+    "description": "Panoramic Pan & Tilt | 2K QHD Image | Smart Tracking | One-touch Call | Physical Privacy Shield | Abnormal Sound Alarm",
+    "shortDescription": "Panoramic Pan & Tilt | 2K QHD Image | Smart Tracking | One-touch Call | Physical Privacy Shield | Abnormal Sound Alarm",
+    "features": ["8 IP camera channels", "4K video recording", "H.265 video compression", "Remote viewing", "Motion detection", "Hard drive recording support"],
+    "colors": [{"name": "unknown", "value": "#0E0E0EFF"}],
+    "sizes": ["8 Channel"],
+    "images": ["https://picsum.photos/seed/ranger_rc/800/800"],
+    "tags": ["null"]
+  },
+  {
+    "id": "sky4",
+    "name": "skyhawk HDD 4To",
+    "slug": "skyhawk HDD 4To",
+    "category": null,
+    "price": 1200.0,
+    "oldPrice": 1200.0,
+    "currency": "USD",
+    "rating": 4.8,
+    "reviews": 104,
+    "stock": 15,
+    "sku": "sky4-skyhawk HDD 4To",
+    "description": "Built for video DVR and NVR security camera systems, SkyHawk delivers video-optimised storage that ensures crisp, clear surveillance footage.",
+    "shortDescription": "Built for video DVR and NVR security camera systems, SkyHawk delivers video-optimised storage that ensures crisp, clear surveillance footage.",
+    "features": ["8 IP camera channels", "4K video recording", "H.265 video compression", "Remote viewing", "Motion detection", "Hard drive recording support"],
+    "colors": [{"name": "unknown", "value": "#00A32AFF"}, {"name": "unknown", "value": "#3F87FFFF"}, {"name": "unknown", "value": "#000000FF"}, {"name": "unknown", "value": "#6D21D3FF"}],
+    "sizes": ["8 Channel"],
+    "images": ["https://picsum.photos/seed/sky4/800/800"],
+    "tags": ["HDD", " disque dur", " camera"]
+  },
+  {
+    "id": "nvr_8ch",
+    "name": "NVR 8 Canaux 4K",
+    "slug": "nvr-8-canaux-4k",
+    "category": "NVR",
+    "price": 250.0,
+    "oldPrice": 250.0,
+    "currency": "USD",
+    "rating": 4.7,
+    "reviews": 89,
+    "stock": 20,
+    "sku": "nvr_8ch-nvr-8-canaux-4k",
+    "description": "Enregistreur vidéo réseau 8 canaux, supporte la résolution 4K, H.265+, P2P, détection de mouvement.",
+    "shortDescription": "Enregistreur vidéo réseau 8 canaux 4K H.265+",
+    "features": ["8 canaux IP", "Résolution 4K", "Compression H.265+", "Accès P2P", "Détection de mouvement", "1 port HDMI"],
+    "colors": [{"name": "noir", "value": "#000000FF"}],
+    "sizes": ["8 Channel"],
+    "images": ["https://picsum.photos/seed/nvr_8ch/800/800"],
+    "tags": ["nvr", "enregistreur", "4k"]
+  },
+  {
+    "id": "nvr_16ch",
+    "name": "NVR 16 Canaux 4K",
+    "slug": "nvr-16-canaux-4k",
+    "category": "NVR",
+    "price": 450.0,
+    "oldPrice": 450.0,
+    "currency": "USD",
+    "rating": 4.8,
+    "reviews": 112,
+    "stock": 15,
+    "sku": "nvr_16ch-nvr-16-canaux-4k",
+    "description": "Enregistreur vidéo réseau 16 canaux, supporte la résolution 4K, H.265+, P2P, détection de mouvement.",
+    "shortDescription": "Enregistreur vidéo réseau 16 canaux 4K H.265+",
+    "features": ["16 canaux IP", "Résolution 4K", "Compression H.265+", "Accès P2P", "Détection de mouvement", "2 ports HDMI"],
+    "colors": [{"name": "noir", "value": "#000000FF"}],
+    "sizes": ["16 Channel"],
+    "images": ["https://picsum.photos/seed/nvr_16ch/800/800"],
+    "tags": ["nvr", "enregistreur", "16ch"]
+  },
+  {
+    "id": "nvr_32ch",
+    "name": "NVR 32 Canaux 4K",
+    "slug": "nvr-32-canaux-4k",
+    "category": "NVR",
+    "price": 850.0,
+    "oldPrice": 850.0,
+    "currency": "USD",
+    "rating": 4.9,
+    "reviews": 65,
+    "stock": 10,
+    "sku": "nvr_32ch-nvr-32-canaux-4k",
+    "description": "Enregistreur vidéo réseau 32 canaux, supporte la résolution 4K, H.265+, P2P, détection de mouvement.",
+    "shortDescription": "Enregistreur vidéo réseau 32 canaux 4K H.265+",
+    "features": ["32 canaux IP", "Résolution 4K", "Compression H.265+", "Accès P2P", "Détection de mouvement", "2 ports HDMI"],
+    "colors": [{"name": "noir", "value": "#000000FF"}],
+    "sizes": ["32 Channel"],
+    "images": ["https://picsum.photos/seed/nvr_32ch/800/800"],
+    "tags": ["nvr", "enregistreur", "32ch"]
+  },
+  {
+    "id": "poe_switch_8",
+    "name": "Switch PoE 8 Ports",
+    "slug": "switch-poe-8-ports",
+    "category": "Accessoires",
+    "price": 120.0,
+    "oldPrice": 120.0,
+    "currency": "USD",
+    "rating": 4.6,
+    "reviews": 210,
+    "stock": 30,
+    "sku": "poe_switch_8-switch-poe-8-ports",
+    "description": "Commutateur réseau PoE 8 ports Gigabit, alimentation automatique, plug and play.",
+    "shortDescription": "Commutateur réseau PoE 8 ports Gigabit",
+    "features": ["8 ports Gigabit", "PoE jusqu'à 150W", "Plug and Play", "Protection contre les surtensions", "Boîtier métal"],
+    "colors": [{"name": "noir", "value": "#000000FF"}],
+    "sizes": ["8 Ports"],
+    "images": ["https://picsum.photos/seed/poe_switch_8/800/800"],
+    "tags": ["poe", "switch", "réseau"]
+  },
+  {
+    "id": "poe_switch_16",
+    "name": "Switch PoE 16 Ports",
+    "slug": "switch-poe-16-ports",
+    "category": "Accessoires",
+    "price": 220.0,
+    "oldPrice": 220.0,
+    "currency": "USD",
+    "rating": 4.7,
+    "reviews": 145,
+    "stock": 25,
+    "sku": "poe_switch_16-switch-poe-16-ports",
+    "description": "Commutateur réseau PoE 16 ports Gigabit, alimentation automatique, plug and play.",
+    "shortDescription": "Commutateur réseau PoE 16 ports Gigabit",
+    "features": ["16 ports Gigabit", "PoE jusqu'à 250W", "Plug and Play", "Protection contre les surtensions", "Boîtier métal"],
+    "colors": [{"name": "noir", "value": "#000000FF"}],
+    "sizes": ["16 Ports"],
+    "images": ["https://picsum.photos/seed/poe_switch_16/800/800"],
+    "tags": ["poe", "switch", "réseau"]
+  },
+  {
+    "id": "wifi_extender",
+    "name": "Répéteur Wi-Fi 6",
+    "slug": "repeteur-wifi-6",
+    "category": "Accessoires",
+    "price": 80.0,
+    "oldPrice": 80.0,
+    "currency": "USD",
+    "rating": 4.5,
+    "reviews": 320,
+    "stock": 50,
+    "sku": "wifi_extender-repeteur-wifi-6",
+    "description": "Extenseur de portée Wi-Fi 6, double bande, jusqu'à 3000 Mbps, couverture large.",
+    "shortDescription": "Extenseur de portée Wi-Fi 6 double bande",
+    "features": ["Wi-Fi 6", "Double bande", "Jusqu'à 3000 Mbps", "Port Ethernet Gigabit", "Mode AP/Repeater"],
+    "colors": [{"name": "blanc", "value": "#FFFFFFFF"}],
+    "sizes": ["Standard"],
+    "images": ["https://picsum.photos/seed/wifi_extender/800/800"],
+    "tags": ["wifi", "réseau", "extender"]
+  },
+  {
+    "id": "smart_doorbell",
+    "name": "Sonnette Vidéo Intelligente",
+    "slug": "sonnette-video-intelligente",
+    "category": "Maison",
+    "price": 150.0,
+    "oldPrice": 150.0,
+    "currency": "USD",
+    "rating": 4.8,
+    "reviews": 412,
+    "stock": 40,
+    "sku": "smart_doorbell-sonnette-video-intelligente",
+    "description": "Sonnette vidéo 2K, détection de personnes, vision nocturne, audio bidirectionnel, batterie rechargeable.",
+    "shortDescription": "Sonnette vidéo 2K avec détection de personnes",
+    "features": ["Résolution 2K", "Détection de personnes", "Vision nocturne", "Audio bidirectionnel", "Batterie rechargeable"],
+    "colors": [{"name": "blanc", "value": "#FFFFFFFF"}, {"name": "noir", "value": "#000000FF"}],
+    "sizes": ["Standard"],
+    "images": ["https://picsum.photos/seed/smart_doorbell/800/800"],
+    "tags": ["doorbell", "sonnette", "smart"]
+  },
+  {
+    "id": "indoor_cam_mini",
+    "name": "Mini Caméra Intérieure",
+    "slug": "mini-camera-interieure",
+    "category": "Maison",
+    "price": 60.0,
+    "oldPrice": 60.0,
+    "currency": "USD",
+    "rating": 4.6,
+    "reviews": 560,
+    "stock": 100,
+    "sku": "indoor_cam_mini-mini-camera-interieure",
+    "description": "Caméra intérieure 1080p, compacte, vision nocturne, détection de mouvement, stockage cloud.",
+    "shortDescription": "Mini caméra intérieure 1080p compacte",
+    "features": ["Résolution 1080p", "Design compact", "Vision nocturne", "Détection de mouvement", "Stockage cloud"],
+    "colors": [{"name": "blanc", "value": "#FFFFFFFF"}],
+    "sizes": ["Standard"],
+    "images": ["https://picsum.photos/seed/indoor_cam_mini/800/800"],
+    "tags": ["camera", "interieur", "mini"]
+  },
+  {
+    "id": "outdoor_cam_pro",
+    "name": "Caméra Extérieure Pro",
+    "slug": "camera-exterieure-pro",
+    "category": "Extérieur",
+    "price": 180.0,
+    "oldPrice": 180.0,
+    "currency": "USD",
+    "rating": 4.7,
+    "reviews": 230,
+    "stock": 35,
+    "sku": "outdoor_cam_pro-camera-exterieure-pro",
+    "description": "Caméra extérieure 4MP, étanche IP67, vision nocturne couleur, détection IA.",
+    "shortDescription": "Caméra extérieure 4MP étanche IP67",
+    "features": ["Résolution 4MP", "Étanche IP67", "Vision nocturne couleur", "Détection IA", "Audio bidirectionnel"],
+    "colors": [{"name": "blanc", "value": "#FFFFFFFF"}],
+    "sizes": ["Standard"],
+    "images": ["https://picsum.photos/seed/outdoor_cam_pro/800/800"],
+    "tags": ["camera", "exterieur", "pro"]
+  },
+  {
+    "id": "bullet_cam_4mp",
+    "name": "Caméra Bullet 4MP",
+    "slug": "camera-bullet-4mp",
+    "category": "Extérieur",
+    "price": 90.0,
+    "oldPrice": 90.0,
+    "currency": "USD",
+    "rating": 4.5,
+    "reviews": 180,
+    "stock": 60,
+    "sku": "bullet_cam_4mp-camera-bullet-4mp",
+    "description": "Caméra bullet 4MP, IR 30m, étanche IP66, H.265+.",
+    "shortDescription": "Caméra bullet 4MP avec IR 30m",
+    "features": ["Résolution 4MP", "IR 30m", "Étanche IP66", "Compression H.265+", "WDR 120dB"],
+    "colors": [{"name": "blanc", "value": "#FFFFFFFF"}],
+    "sizes": ["Standard"],
+    "images": ["https://picsum.photos/seed/bullet_cam_4mp/800/800"],
+    "tags": ["camera", "bullet", "4mp"]
+  },
+  {
+    "id": "dome_cam_4mp",
+    "name": "Caméra Dôme 4MP",
+    "slug": "camera-dome-4mp",
+    "category": "Extérieur",
+    "price": 95.0,
+    "oldPrice": 95.0,
+    "currency": "USD",
+    "rating": 4.6,
+    "reviews": 195,
+    "stock": 55,
+    "sku": "dome_cam_4mp-camera-dome-4mp",
+    "description": "Caméra dôme 4MP, IR 30m, étanche IP67, anti-vandale IK10.",
+    "shortDescription": "Caméra dôme 4MP anti-vandale IK10",
+    "features": ["Résolution 4MP", "IR 30m", "Étanche IP67", "Anti-vandale IK10", "WDR 120dB"],
+    "colors": [{"name": "blanc", "value": "#FFFFFFFF"}],
+    "sizes": ["Standard"],
+    "images": ["https://picsum.photos/seed/dome_cam_4mp/800/800"],
+    "tags": ["camera", "dome", "4mp"]
+  },
+  {
+    "id": "ptz_cam_4k",
+    "name": "Caméra PTZ 4K",
+    "slug": "camera-ptz-4k",
+    "category": "Extérieur",
+    "price": 450.0,
+    "oldPrice": 450.0,
+    "currency": "USD",
+    "rating": 4.9,
+    "reviews": 78,
+    "stock": 12,
+    "sku": "ptz_cam_4k-camera-ptz-4k",
+    "description": "Caméra PTZ 4K, zoom optique 25x, IR 150m, suivi automatique.",
+    "shortDescription": "Caméra PTZ 4K avec zoom optique 25x",
+    "features": ["Résolution 4K", "Zoom optique 25x", "IR 150m", "Suivi automatique", "Étanche IP66"],
+    "colors": [{"name": "blanc", "value": "#FFFFFFFF"}],
+    "sizes": ["Standard"],
+    "images": ["https://picsum.photos/seed/ptz_cam_4k/800/800"],
+    "tags": ["camera", "ptz", "4k"]
+  },
+  {
+    "id": "solar_cam",
+    "name": "Caméra Solaire",
+    "slug": "camera-solaire",
+    "category": "Extérieur",
+    "price": 160.0,
+    "oldPrice": 160.0,
+    "currency": "USD",
+    "rating": 4.7,
+    "reviews": 290,
+    "stock": 45,
+    "sku": "solar_cam-camera-solaire",
+    "description": "Caméra de sécurité solaire 100% sans fil, batterie longue durée, détection PIR.",
+    "shortDescription": "Caméra de sécurité solaire 100% sans fil",
+    "features": ["100% sans fil", "Panneau solaire", "Batterie 10000mAh", "Détection PIR", "Vision nocturne"],
+    "colors": [{"name": "blanc", "value": "#FFFFFFFF"}],
+    "sizes": ["Standard"],
+    "images": ["https://picsum.photos/seed/solar_cam/800/800"],
+    "tags": ["camera", "solaire", "sans fil"]
+  },
+  {
+    "id": "battery_cam",
+    "name": "Caméra sur Batterie",
+    "slug": "camera-sur-batterie",
+    "category": "Maison",
+    "price": 130.0,
+    "oldPrice": 130.0,
+    "currency": "USD",
+    "rating": 4.6,
+    "reviews": 340,
+    "stock": 38,
+    "sku": "battery_cam-camera-sur-batterie",
+    "description": "Caméra sur batterie rechargeable, installation facile, détection intelligente.",
+    "shortDescription": "Caméra sur batterie rechargeable sans fil",
+    "features": ["Batterie rechargeable", "Installation facile", "Détection intelligente", "Audio bidirectionnel", "Stockage local/cloud"],
+    "colors": [{"name": "blanc", "value": "#FFFFFFFF"}],
+    "sizes": ["Standard"],
+    "images": ["https://picsum.photos/seed/battery_cam/800/800"],
+    "tags": ["camera", "batterie", "sans fil"]
+  },
+  {
+    "id": "fisheye_cam",
+    "name": "Caméra Fisheye 360°",
+    "slug": "camera-fisheye-360",
+    "category": "Maison",
+    "price": 220.0,
+    "oldPrice": 220.0,
+    "currency": "USD",
+    "rating": 4.8,
+    "reviews": 95,
+    "stock": 18,
+    "sku": "fisheye_cam-camera-fisheye-360",
+    "description": "Caméra fisheye 8MP, vue 360°, déwarping matériel, audio intégré.",
+    "shortDescription": "Caméra fisheye 8MP avec vue 360°",
+    "features": ["Résolution 8MP", "Vue 360°", "Dewarping matériel", "Audio intégré", "PoE"],
+    "colors": [{"name": "blanc", "value": "#FFFFFFFF"}],
+    "sizes": ["Standard"],
+    "images": ["https://picsum.photos/seed/fisheye_cam/800/800"],
+    "tags": ["camera", "fisheye", "360"]
+  },
+  {
+    "id": "thermal_cam",
+    "name": "Caméra Thermique",
+    "slug": "camera-thermique",
+    "category": "sécurité",
+    "price": 850.0,
+    "oldPrice": 850.0,
+    "currency": "USD",
+    "rating": 4.9,
+    "reviews": 42,
+    "stock": 8,
+    "sku": "thermal_cam-camera-thermique",
+    "description": "Caméra thermique bi-spectrale, détection de température, périmètre sécurisé.",
+    "shortDescription": "Caméra thermique bi-spectrale professionnelle",
+    "features": ["Bi-spectrale", "Détection de température", "Périmètre sécurisé", "Vision nocturne totale", "Étanche IP67"],
+    "colors": [{"name": "noir", "value": "#000000FF"}],
+    "sizes": ["Standard"],
+    "images": ["https://picsum.photos/seed/thermal_cam/800/800"],
+    "tags": ["camera", "thermique", "securite"]
+  },
+  {
+    "id": "license_plate_cam",
+    "name": "Caméra ANPR",
+    "slug": "camera-anpr",
+    "category": "sécurité",
+    "price": 650.0,
+    "oldPrice": 650.0,
+    "currency": "USD",
+    "rating": 4.8,
+    "reviews": 67,
+    "stock": 14,
+    "sku": "license_plate_cam-camera-anpr",
+    "description": "Caméra de reconnaissance de plaques d'immatriculation, capture rapide, intégration parking.",
+    "shortDescription": "Caméra de reconnaissance de plaques ANPR",
+    "features": ["Reconnaissance ANPR", "Capture rapide", "Intégration parking", "Étanche IP67", "IR 30m"],
+    "colors": [{"name": "noir", "value": "#000000FF"}],
+    "sizes": ["Standard"],
+    "images": ["https://picsum.photos/seed/license_plate_cam/800/800"],
+    "tags": ["camera", "anpr", "plaque"]
+  },
+  {
+    "id": "body_cam",
+    "name": "Caméra Piétonne",
+    "slug": "camera-pietonne",
+    "category": "sécurité",
+    "price": 180.0,
+    "oldPrice": 180.0,
+    "currency": "USD",
+    "rating": 4.7,
+    "reviews": 125,
+    "stock": 22,
+    "sku": "body_cam-camera-pietonne",
+    "description": "Caméra portée au corps, 1080p, enregistrement audio/vidéo, batterie longue durée.",
+    "shortDescription": "Caméra piétonne 1080p avec batterie longue durée",
+    "features": ["Résolution 1080p", "Enregistrement AV", "Batterie 8h", "Étanche IP66", "Clip robuste"],
+    "colors": [{"name": "noir", "value": "#000000FF"}],
+    "sizes": ["Standard"],
+    "images": ["https://picsum.photos/seed/body_cam/800/800"],
+    "tags": ["camera", "pieton", "bodycam"]
+  },
+  {
+    "id": "dash_cam_front",
+    "name": "Dash Cam Avant",
+    "slug": "dash-cam-avant",
+    "category": "Auto",
+    "price": 110.0,
+    "oldPrice": 110.0,
+    "currency": "USD",
+    "rating": 4.6,
+    "reviews": 480,
+    "stock": 70,
+    "sku": "dash_cam_front-dash-cam-avant",
+    "description": "Caméra de tableau de bord avant, 2K, GPS intégré, détection de collision.",
+    "shortDescription": "Dash cam avant 2K avec GPS intégré",
+    "features": ["Résolution 2K", "GPS intégré", "Détection de collision", "Vision nocturne", "Capteur G"],
+    "colors": [{"name": "noir", "value": "#000000FF"}],
+    "sizes": ["Standard"],
+    "images": ["https://picsum.photos/seed/dash_cam_front/800/800"],
+    "tags": ["camera", "auto", "dashcam"]
+  },
+  {
+    "id": "dash_cam_dual",
+    "name": "Dash Cam Double",
+    "slug": "dash-cam-double",
+    "category": "Auto",
+    "price": 190.0,
+    "oldPrice": 190.0,
+    "currency": "USD",
+    "rating": 4.8,
+    "reviews": 310,
+    "stock": 45,
+    "sku": "dash_cam_dual-dash-cam-double",
+    "description": "Caméra de tableau de bord avant et arrière, 4K + 1080p, parking mode.",
+    "shortDescription": "Dash cam double 4K + 1080p avec mode parking",
+    "features": ["4K Avant + 1080p Arrière", "Mode parking", "GPS intégré", "Wi-Fi", "Capteur G"],
+    "colors": [{"name": "noir", "value": "#000000FF"}],
+    "sizes": ["Standard"],
+    "images": ["https://picsum.photos/seed/dash_cam_dual/800/800"],
+    "tags": ["camera", "auto", "dashcam"]
+  },
+  {
+    "id": "baby_monitor",
+    "name": "Baby Monitor Vidéo",
+    "slug": "baby-monitor-video",
+    "category": "Maison",
+    "price": 140.0,
+    "oldPrice": 140.0,
+    "currency": "USD",
+    "rating": 4.9,
+    "reviews": 520,
+    "stock": 60,
+    "sku": "baby_monitor-baby-monitor-video",
+    "description": "Moniteur pour bébé 5 pouces, vue claire, berceuses, détection de pleurs.",
+    "shortDescription": "Baby monitor vidéo 5 pouces avec détection de pleurs",
+    "features": ["Écran 5 pouces", "Vue claire 1080p", "Berceuses", "Détection de pleurs", "Audio bidirectionnel"],
+    "colors": [{"name": "blanc", "value": "#FFFFFFFF"}],
+    "sizes": ["Standard"],
+    "images": ["https://picsum.photos/seed/baby_monitor/800/800"],
+    "tags": ["baby", "monitor", "maison"]
+  },
+  {
+    "id": "pet_cam",
+    "name": "Caméra pour Animaux",
+    "slug": "camera-pour-animaux",
+    "category": "Maison",
+    "price": 120.0,
+    "oldPrice": 120.0,
+    "currency": "USD",
+    "rating": 4.7,
+    "reviews": 275,
+    "stock": 35,
+    "sku": "pet_cam-camera-pour-animaux",
+    "description": "Caméra pour animaux avec distributeur de friandises, vue 160°, interaction à distance.",
+    "shortDescription": "Caméra pour animaux avec distributeur de friandises",
+    "features": ["Distributeur de friandises", "Vue 160°", "Interaction à distance", "Détection de mouvement", "Audio bidirectionnel"],
+    "colors": [{"name": "blanc", "value": "#FFFFFFFF"}],
+    "sizes": ["Standard"],
+    "images": ["https://picsum.photos/seed/pet_cam/800/800"],
+    "tags": ["pet", "camera", "maison"]
+  },
+  {
+    "id": "garden_sensor",
+    "name": "Capteur de Mouvement Jardin",
+    "slug": "capteur-de-mouvement-jardin",
+    "category": "Extérieur",
+    "price": 45.0,
+    "oldPrice": 45.0,
+    "currency": "USD",
+    "rating": 4.5,
+    "reviews": 190,
+    "stock": 80,
+    "sku": "garden_sensor-capteur-de-mouvement-jardin",
+    "description": "Capteur de mouvement extérieur, détection PIR, alarme sonore, étanche.",
+    "shortDescription": "Capteur de mouvement extérieur avec alarme sonore",
+    "features": ["Détection PIR", "Alarme sonore 110dB", "Étanche IP65", "Portée 10m", "Sans fil"],
+    "colors": [{"name": "blanc", "value": "#FFFFFFFF"}],
+    "sizes": ["Standard"],
+    "images": ["https://picsum.photos/seed/garden_sensor/800/800"],
+    "tags": ["capteur", "mouvement", "jardin"]
+  },
+  {
+    "id": "smart_lock",
+    "name": "Serrure Intelligente",
+    "slug": "serrure-intelligente",
+    "category": "Maison",
+    "price": 250.0,
+    "oldPrice": 250.0,
+    "currency": "USD",
+    "rating": 4.8,
+    "reviews": 340,
+    "stock": 25,
+    "sku": "smart_lock-serrure-intelligente",
+    "description": "Serrure de porte intelligente, déverrouillage par empreinte, code, carte, application.",
+    "shortDescription": "Serrure de porte intelligente biométrique",
+    "features": ["Empreinte digitale", "Code PIN", "Carte RFID", "Application mobile", "Alarme anti-effraction"],
+    "colors": [{"name": "noir", "value": "#000000FF"}, {"name": "argent", "value": "#C0C0C0FF"}],
+    "sizes": ["Standard"],
+    "images": ["https://picsum.photos/seed/smart_lock/800/800"],
+    "tags": ["serrure", "smart", "maison"]
+  },
+  {
+    "id": "alarm_system",
+    "name": "Système d'Alarme Sans Fil",
+    "slug": "systeme-alarme-sans-fil",
+    "category": "sécurité",
+    "price": 320.0,
+    "oldPrice": 320.0,
+    "currency": "USD",
+    "rating": 4.7,
+    "reviews": 215,
+    "stock": 30,
+    "sku": "alarm_system-systeme-alarme-sans-fil",
+    "description": "Système d'alarme maison sans fil, panneau de contrôle, capteurs, sirène, application.",
+    "shortDescription": "Système d'alarme maison sans fil complet",
+    "features": ["Sans fil", "Panneau de contrôle", "Capteurs inclusion/ouverture", "Sirène intégrée", "Application mobile"],
+    "colors": [{"name": "blanc", "value": "#FFFFFFFF"}],
+    "sizes": ["Kit 5 pièces"],
+    "images": ["https://picsum.photos/seed/alarm_system/800/800"],
+    "tags": ["alarme", "securite", "maison"]
+  },
+  {
+    "id": "siren_outdoor",
+    "name": "Sirène Extérieure",
+    "slug": "sirene-exterieure",
+    "category": "sécurité",
+    "price": 85.0,
+    "oldPrice": 85.0,
+    "currency": "USD",
+    "rating": 4.6,
+    "reviews": 130,
+    "stock": 40,
+    "sku": "siren_outdoor-sirene-exterieure",
+    "description": "Sirène extérieure sans fil, 110dB, flash stroboscopique, étanche.",
+    "shortDescription": "Sirène extérieure sans fil 110dB",
+    "features": ["110dB", "Flash stroboscopique", "Étanche IP65", "Sans fil", "Batterie de secours"],
+    "colors": [{"name": "blanc", "value": "#FFFFFFFF"}],
+    "sizes": ["Standard"],
+    "images": ["https://picsum.photos/seed/siren_outdoor/800/800"],
+    "tags": ["sirene", "exterieur", "alarme"]
+  },
+  {
+    "id": "hdd_8tb",
+    "name": "Disque Dur 8To Surveillance",
+    "slug": "disque-dur-8to-surveillance",
+    "category": "Accessoires",
+    "price": 280.0,
+    "oldPrice": 280.0,
+    "currency": "USD",
+    "rating": 4.8,
+    "reviews": 150,
+    "stock": 20,
+    "sku": "hdd_8tb-disque-dur-8to-surveillance",
+    "description": "Disque dur 8To optimisé pour la vidéosurveillance, 24/7, H.265+, AllFrame.",
+    "shortDescription": "Disque dur 8To optimisé pour la vidéosurveillance",
+    "features": ["Capacité 8To", "Optimisé 24/7", "Support H.265+", "Technologie AllFrame", "Garantie 3 ans"],
+    "colors": [{"name": "vert", "value": "#00A32AFF"}],
+    "sizes": ["8 TB"],
+    "images": ["https://picsum.photos/seed/hdd_8tb/800/800"],
+    "tags": ["hdd", "disque dur", "8tb"]
+  },
+  {
+    "id": "hdd_16tb",
+    "name": "Disque Dur 16To Surveillance",
+    "slug": "disque-dur-16to-surveillance",
+    "category": "Accessoires",
+    "price": 520.0,
+    "oldPrice": 520.0,
+    "currency": "USD",
+    "rating": 4.9,
+    "reviews": 95,
+    "stock": 12,
+    "sku": "hdd_16tb-disque-dur-16to-surveillance",
+    "description": "Disque dur 16To optimisé pour la vidéosurveillance, 24/7, H.265+, AllFrame.",
+    "shortDescription": "Disque dur 16To optimisé pour la vidéosurveillance",
+    "features": ["Capacité 16To", "Optimisé 24/7", "Support H.265+", "Technologie AllFrame", "Garantie 3 ans"],
+    "colors": [{"name": "vert", "value": "#00A32AFF"}],
+    "sizes": ["16 TB"],
+    "images": ["https://picsum.photos/seed/hdd_16tb/800/800"],
+    "tags": ["hdd", "disque dur", "16tb"]
+  }
+]
