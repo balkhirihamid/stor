@@ -3,18 +3,19 @@ import Layout from "../../layouts/Layout.astro";
 import { products } from "../../data/products";
 import Navbar from '../../ui/navbar.astro';
 import Footer from "../../ui/footer.astro";
+import { info } from "../../data/products.ts";
 
 export function getStaticPaths() {
   return products.map((product) => ({ params: { id: String(product.id) }, props: { product }}));
 }
 
 const { product } = Astro.props;
-const siteUrl = "https://example.com";
-const productUrl = `${siteUrl}/shop/${product.id}`;
+const siteUrl = import.meta.env.SITE;
+const productUrl = `${siteUrl}shop/${product.id}`;
 ---
 
 <Layout
-  title={`${product.name} | SHOP.`}
+  title={`${product.name} | ${info.name.toUpperCase()}`}
   description={product.shortDescription}
   canonical={productUrl}
   image={product.images[0]}
