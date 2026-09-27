@@ -2,410 +2,880 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../ui/navbar.astro';
 import Footer from '../ui/footer.astro';
-import { products } from "../data/products";
+import { products } from '../data/products';
 
-const search = Astro.url.searchParams.get("search")?.trim().toLowerCase() || "";
+const categories = [
+  ...new Set(products.map((product) => product.category?.trim()).filter(Boolean) ),
+];
 
-const sp = search ? products.filter((product) => {
-    const searchableText = [
-      product.name,
-      product.category,
-      product.description,
-      ...(product.tags ?? []),
-    ].filter(Boolean).join(" ").toLowerCase();
-
-    return searchableText.includes(search);
-  }): products;
+const pageSize = 12;
 ---
+
 <Layout>
-<Navbar />
+  <Navbar />
 
-<main class="min-h-screen bg-gray-50">
+  <main class="min-h-screen bg-gray-50">
 
-  <!-- Page Header -->
-  <section class="border-b border-gray-200 bg-white">
-    <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    <!-- Page Header -->
+    <section class="border-b border-gray-200 bg-white">
+      <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
 
-      <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div class="flex flex-col gap-6">
 
-        <div>
-          <p class="mb-2 text-sm font-medium text-indigo-600">
-            Shop
-          </p>
+          <div>
+            <p class="mb-2 text-sm font-medium text-indigo-600">
+              Shop
+            </p>
 
-          <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            All Products
-          </h1>
+            <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              All Products
+            </h1>
 
-          <p class="mt-2 max-w-xl text-sm text-gray-500">
-            Discover our latest collection and find something you love.
-          </p>
+            <p class="mt-2 max-w-xl text-sm text-gray-500">
+              Discover our products and find exactly what you need.
+            </p>
+          </div>
+
+          <!-- Search + Sort -->
+          <div class="flex flex-col gap-3 sm:flex-row">
+
+            <!-- Search -->
+            <div class="relative flex-1">
+              <label for="product-search" class="sr-only"> Search products </label>
+
+              <svg class="pointer-events-none absolute inset-s-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true" >
+                <circle cx="11" cy="11" r="7" />
+                <path d="m20 20-3.5-3.5" />
+              </svg>
+
+              <input
+                id="product-search"
+                type="search"
+                placeholder="Search products..."
+                autocomplete="off"
+                class="h-11 w-full rounded-lg border border-gray-200 bg-white ps-10 pe-10 text-sm text-gray-700 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+              />
+
+              <button
+                id="clear-search"
+                type="button"
+                class="absolute inset-e-2 top-1/2 hidden h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md text-gray-400 hover:bg-gray-100 hover:text-gray-700"
+                aria-label="Clear search"
+              > × </button>
+            </div>
+
+            <!-- Sort -->
+            <div class="flex items-center gap-3">
+              <label for="sort-products" class="hidden text-sm text-gray-500 sm:block" > Sort by </label>
+              <select id="sort-products" class="h-11 rounded-lg border border-gray-200 bg-white px-3 text-sm text-gray-700 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100" >
+                <option value="featured">Featured</option>
+                <option value="newest">Newest</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="name-asc">Name: A → Z</option>
+                <option value="name-desc">Name: Z → A</option>
+              </select>
+            </div>
+          </div>
         </div>
+      </div>
+    </section>
 
-        <!-- Sort -->
-        <div class="flex items-center gap-3">
-          <span class="hidden text-sm text-gray-500 sm:block">
-            Sort by
-          </span>
 
-          <select
-            class="h-10 rounded-lg border border-gray-200 bg-white px-3 text-sm text-gray-700 outline-none transition focus:border-indigo-500"
-          >
-            <option>Featured</option>
-            <option>Newest</option>
-            <option>Price: Low to High</option>
-            <option>Price: High to Low</option>
-          </select>
-        </div>
+    <!-- Shop -->
+    <section class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+
+      <!-- Mobile filter button -->
+      <div class="mb-6 flex items-center justify-between lg:hidden">
+
+        <button
+          id="filter-button"
+          type="button"
+          aria-expanded="false"
+          aria-controls="filters"
+          class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
+        >
+
+          <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true" >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M7 12h10M10 18h4" />
+          </svg>
+          Filters
+        </button>
+
+        <span id="mobile-count" class="text-sm text-gray-500" > {products.length} products </span>
 
       </div>
 
-    </div>
-  </section>
 
+      <div class="grid grid-cols-1 gap-8 lg:grid-cols-[240px_minmax(0,1fr)]">
 
-  <!-- Shop -->
-  <section class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <!-- Sidebar -->
+        <aside id="filters" class="hidden lg:block" aria-label="Product filters" >
 
-    <div class="flex items-center justify-between lg:hidden mb-6">
+          <div class="sticky top-24 space-y-6">
 
-      <button
-        id="filter-button"
-        class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
-      >
-        <svg
-          class="h-4 w-4"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M4 6h16M7 12h10M10 18h4"
-          />
-        </svg>
+            <!-- Categories -->
+            <div class="rounded-xl border border-gray-200 bg-white p-5">
 
-        Filters
-      </button>
+              <h2 class="text-sm font-semibold text-gray-900"> Categories </h2>
 
-      <span class="text-sm text-gray-500">
-        {sp.length} sp
-      </span>
+              <div class="mt-4 space-y-3">
 
-    </div>
+                <!-- All -->
+                <label class="flex cursor-pointer items-center gap-3">
 
+                  <input
+                    type="checkbox"
+                    name="category"
+                    value="all"
+                    checked
+                    class="category-filter h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                  />
 
-    <div class="grid grid-cols-1 gap-8 lg:grid-cols-[240px_minmax(0,1fr)]">
+                  <span class="text-sm text-gray-600"> All </span>
+                </label>
 
-      <!-- Sidebar -->
-      <aside
-        id="filters"
-        class="hidden lg:block"
-      >
-
-        <div class="sticky top-24 space-y-6">
-
-          <!-- Categories -->
-          <div class="rounded-xl border border-gray-200 bg-white p-5">
-
-            <h2 class="text-sm font-semibold text-gray-900">
-              Categories
-            </h2>
-
-            <div class="mt-4 space-y-3">
-
-              <label class="flex cursor-pointer items-center gap-3">
-                <input
-                  type="checkbox"
-                  class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                />
-                <span class="text-sm text-gray-600">
-                  Clothing
-                </span>
-              </label>
-
-              <label class="flex cursor-pointer items-center gap-3">
-                <input
-                  type="checkbox"
-                  class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                />
-                <span class="text-sm text-gray-600">
-                  Shoes
-                </span>
-              </label>
-
-              <label class="flex cursor-pointer items-center gap-3">
-                <input
-                  type="checkbox"
-                  class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                />
-                <span class="text-sm text-gray-600">
-                  Accessories
-                </span>
-              </label>
-
+                {
+                  categories.map((category) => (
+                    <label class="flex cursor-pointer items-center gap-3">
+                      <input
+                        type="checkbox"
+                        name="category"
+                        value={category}
+                        class="category-filter h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                      />
+                      <span class="text-sm text-gray-600"> {category} </span>
+                    </label>
+                  ))
+                }
+              </div>
             </div>
-          </div>
 
 
-          <!-- Price -->
-          <div class="rounded-xl border border-gray-200 bg-white p-5">
+            <!-- Price -->
+            <div class="rounded-xl border border-gray-200 bg-white p-5">
 
-            <h2 class="text-sm font-semibold text-gray-900">
-              Price
-            </h2>
+              <h2 class="text-sm font-semibold text-gray-900"> Price </h2>
 
-            <div class="mt-4 space-y-3">
+              <div class="mt-4 space-y-3">
 
-              <label class="flex cursor-pointer items-center gap-3">
-                <input
-                  type="radio"
-                  name="price"
-                  class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                />
-                <span class="text-sm text-gray-600">
-                  Under $50
-                </span>
-              </label>
+                <label class="flex cursor-pointer items-center gap-3">
+                  <input
+                    type="radio"
+                    name="price"
+                    value="all"
+                    checked
+                    class="price-filter h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                  />
+                  <span class="text-sm text-gray-600"> All prices </span>
+                </label>
 
-              <label class="flex cursor-pointer items-center gap-3">
-                <input
-                  type="radio"
-                  name="price"
-                  class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                />
-                <span class="text-sm text-gray-600">
-                  $50 - $100
-                </span>
-              </label>
+                <label class="flex cursor-pointer items-center gap-3">
+                  <input
+                    type="radio"
+                    name="price"
+                    value="under-500"
+                    class="price-filter h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                  />
+                  <span class="text-sm text-gray-600"> Under $500 </span>
+                </label>
 
-              <label class="flex cursor-pointer items-center gap-3">
-                <input
-                  type="radio"
-                  name="price"
-                  class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                />
-                <span class="text-sm text-gray-600">
-                  $100+
-                </span>
-              </label>
+                <label class="flex cursor-pointer items-center gap-3">
+                  <input
+                    type="radio"
+                    name="price"
+                    value="500-1000"
+                    class="price-filter h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                  />
+                  <span class="text-sm text-gray-600"> $500 - $1,000 </span>
+                </label>
 
-            </div>
-          </div>
-
-
-          <!-- Availability -->
-          <div class="rounded-xl border border-gray-200 bg-white p-5">
-
-            <h2 class="text-sm font-semibold text-gray-900">
-              Availability
-            </h2>
-
-            <label class="mt-4 flex cursor-pointer items-center gap-3">
-              <input
-                type="checkbox"
-                class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-              />
-
-              <span class="text-sm text-gray-600">
-                In stock
-              </span>
-            </label>
-
-          </div>
-
-        </div>
-
-      </aside>
-
-
-      <!-- sp -->
-      <div>
-
-        <div class="mb-5 hidden items-center justify-between lg:flex">
-
-          <p class="text-sm text-gray-500">
-            Showing <span class="font-medium text-gray-900">{sp.length}</span> products
-          </p>
-
-        </div>
-
-
-        <div class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-          {sp.map((product) => (
-
-            <article class="group min-w-0">
-
-              <!-- Image -->
-              <a
-                href={`${import.meta.env.BASE_URL}shop/${product.id}`}
-                class="relative block aspect-square overflow-hidden rounded-xl bg-gray-100"
-              >
-
-                <img
-                  src={product.images[0].startsWith("http") ? product.images[0] : `${import.meta.env.BASE_URL}${product.images[0]}`}
-                  alt={product.name}
-                  loading="lazy"
-                  class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                />
-
-                {product.oldPrice && (
-                  <span class="absolute inset-s-3 top-3 rounded-full bg-red-500 px-2.5 py-1 text-xs font-semibold text-white">
-                    Sale
-                  </span>
-                )}
-
-                <!-- Wishlist -->
-                <button
-                  class="absolute inset-e-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-gray-600 shadow-sm backdrop-blur transition hover:bg-white hover:text-red-500"
-                  aria-label={`Add ${product.name} to wishlist`}
-                >
-                  <svg
-                    class="h-4 w-4"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.8"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M20.8 8.7c0 5.5-8.8 10.3-8.8 10.3S3.2 14.2 3.2 8.7A4.7 4.7 0 0 1 12 6.1a4.7 4.7 0 0 1 8.8 2.6Z"
-                    />
-                  </svg>
-                </button>
-
-              </a>
-
-
-              <!-- Product Info -->
-              <div class="pt-4">
-
-                <p class="text-xs font-medium text-gray-400">
-                  {product.category}
-                </p>
-
-                <h2 class="mt-1 truncate text-sm font-medium text-gray-900">
-                  <a
-                    href={`${import.meta.env.BASE_URL}shop/${product.id}`}
-                    class="transition hover:text-indigo-600"
-                  >
-                    {product.name}
-                  </a>
-                </h2>
-
-
-                <div class="mt-2 flex items-center gap-2">
-
-                  <span class="text-sm font-bold text-gray-900">
-                    ${product.price.toFixed(2)}
-                  </span>
-
-                  {product.oldPrice && (
-                    <span class="text-xs text-gray-400 line-through">
-                      ${product.oldPrice.toFixed(2)}
-                    </span>
-                  )}
-
-                </div>
-
-
-                <!-- Add to Cart -->
-                <button
-                  class="mt-3 flex w-full items-center justify-center gap-2 rounded-lg bg-gray-900 px-3 py-2.5 text-xs font-semibold text-white transition hover:bg-indigo-600 active:scale-[0.98]"
-                >
-                  <svg
-                    class="h-4 w-4"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.8"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 1.9-1.4L21 8H6"
-                    />
-                    <circle cx="10" cy="20" r="1" />
-                    <circle cx="18" cy="20" r="1" />
-                  </svg>
-
-                  Add to cart
-                </button>
+                <label class="flex cursor-pointer items-center gap-3">
+                  <input
+                    type="radio"
+                    name="price"
+                    value="1000-plus"
+                    class="price-filter h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                  />
+                  <span class="text-sm text-gray-600"> $1,000+ </span>
+                </label>
 
               </div>
 
-            </article>
-
-          ))}
-
-        </div>
+            </div>
 
 
-        <!-- Pagination -->
-        <div class="mt-12 flex items-center justify-center gap-2">
+            <!-- Availability -->
+            <div class="rounded-xl border border-gray-200 bg-white p-5">
+              <h2 class="text-sm font-semibold text-gray-900"> Availability </h2>
+              <label class="mt-4 flex cursor-pointer items-center gap-3">
 
-          <button
-            class="flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-500 hover:bg-gray-50"
-            aria-label="Previous page"
+                <input
+                  id="stock-filter"
+                  type="checkbox"
+                  class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                />
+
+                <span class="text-sm text-gray-600"> In stock </span>
+              </label>
+            </div>
+          </div>
+        </aside>
+
+
+        <!-- Products -->
+        <div>
+
+          <div class="mb-5 flex items-center justify-between">
+
+            <p class="text-sm text-gray-500">
+              Showing
+              <span id="result-count" class="font-medium text-gray-900" > {products.length} </span>
+              products
+            </p>
+
+            <button
+              id="clear-filters"
+              type="button"
+              class="hidden text-sm font-medium text-indigo-600 hover:text-indigo-700"
+            > Clear filters </button>
+
+          </div>
+
+
+          <!-- Product Grid -->
+          <div
+            id="product-grid"
+            class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4"
           >
-            <svg
-              class="h-4 w-4 rtl:rotate-180"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              viewBox="0 0 24 24"
+
+            {
+              products.map((product) => {
+
+                const image = product.images?.[0].startsWith("http") ? product.images[0] : `${import.meta.env.BASE_URL}${product.images?.[0]}`;
+
+                return (
+                  <article
+                    class="product-card group min-w-0"
+                    data-id={product.id}
+                    data-name={product.name}
+                    data-category={product.category ?? ''}
+                    data-description={product.description ?? ''}
+                    data-tags={(product.tags ?? []).join(' ')}
+                    data-price={product.price}
+                    data-stock={product.stock ?? 0}
+                  >
+
+                    <!-- Image -->
+                    <div class="relative">
+                      <a href={`${import.meta.env.BASE_URL}shop/${product.id}`} class="relative block aspect-square overflow-hidden rounded-xl bg-gray-100" >
+                        <img
+                          src={image}
+                          alt={product.name}
+                          loading="lazy"
+                          decoding="async"
+                          class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                        />
+
+                        {
+                          product.oldPrice &&
+                          product.oldPrice > product.price && (
+                            <span class="absolute inset-s-3 top-3 rounded-full bg-red-500 px-2.5 py-1 text-xs font-semibold text-white">
+                              Sale
+                            </span>
+                          )
+                        }
+                      </a>
+
+
+                      <!-- Wishlist -->
+                      <button
+                        type="button"
+                        class="absolute inset-e-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-gray-600 shadow-sm backdrop-blur transition hover:bg-white hover:text-red-500"
+                        aria-label={`Add ${product.name} to wishlist`}
+                      >
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true" >
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M20.8 8.7c0 5.5-8.8 10.3-8.8 10.3S3.2 14.2 3.2 8.7A4.7 4.7 0 0 1 12 6.1a4.7 4.7 0 0 1 8.8 2.6Z" />
+                        </svg>
+                      </button>
+                    </div>
+
+
+                    <!-- Product Info -->
+                    <div class="pt-4">
+                      {
+                        <p class="text-xs font-medium text-gray-400"> {product.category??'unv'} </p>
+                      }
+                      <h2 class="mt-1 truncate text-sm font-medium text-gray-900">
+                        <a href={`${import.meta.env.BASE_URL}shop/${product.id}`} class="transition hover:text-indigo-600" >
+                          {product.name}
+                        </a>
+                      </h2>
+
+
+                      <div class="mt-2 flex items-center gap-2">
+                        <span class="text-sm font-bold text-gray-900">
+                          {product.currency === 'USD' ? '$' : product.currency}
+                          {product.price.toFixed(2)}
+                        </span>
+
+                        {
+                          product.oldPrice &&
+                          product.oldPrice > product.price && (
+                            <span class="text-xs text-gray-400 line-through">
+                              {product.currency === 'USD' ? '$' : product.currency}
+                              {product.oldPrice.toFixed(2)}
+                            </span>
+                          )
+                        }
+
+                      </div>
+
+
+                      <!-- Add to cart -->
+                      <button
+                        type="button"
+                        class="mt-3 flex w-full items-center justify-center gap-2 rounded-lg bg-gray-900 px-3 py-2.5 text-xs font-semibold text-white transition hover:bg-indigo-600 active:scale-[0.98]"
+                        aria-label={`Add ${product.name} to cart`}
+                      >
+
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true" >
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 1.9-1.4L21 8H6" />
+                          <circle cx="10" cy="20" r="1" />
+                          <circle cx="18" cy="20" r="1" />
+                        </svg>
+                        Add to cart
+                      </button>
+                    </div>
+                  </article>
+                );
+              })
+            }
+
+          </div>
+
+
+          <!-- Empty -->
+          <div id="empty-state" class="hidden py-20 text-center" >
+            <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gray-100">
+              <svg class="h-7 w-7 text-gray-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true" >
+                <circle cx="11" cy="11" r="7" />
+                <path d="m20 20-3.5-3.5" />
+              </svg>
+            </div>
+
+            <h2 class="mt-5 text-lg font-semibold text-gray-900"> No products found </h2>
+            <p class="mt-2 text-sm text-gray-500"> Try changing your search or filters. </p>
+            <button
+              id="empty-clear"
+              type="button"
+              class="mt-5 rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-600"
             >
-              <path stroke-linecap="round" stroke-linejoin="round" d="m15 18-6-6 6-6" />
-            </svg>
-          </button>
+              Clear filters
+            </button>
+          </div>
 
-          <button class="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600 text-sm font-semibold text-white">
-            1
-          </button>
 
-          <button class="flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 bg-white text-sm text-gray-600 hover:bg-gray-50">
-            2
-          </button>
-
-          <button class="flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 bg-white text-sm text-gray-600 hover:bg-gray-50">
-            3
-          </button>
-
-          <button
-            class="flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-500 hover:bg-gray-50"
-            aria-label="Next page"
-          >
-            <svg
-              class="h-4 w-4 rtl:rotate-180"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-            >
-              <path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6" />
-            </svg>
-          </button>
-
+          <!-- Pagination -->
+          <nav id="pagination" class="mt-12 flex flex-wrap items-center justify-center gap-2" aria-label="Product pagination" >
+          </nav>
         </div>
-
       </div>
+    </section>
+  </main>
 
-    </div>
+  <Footer />
 
-  </section>
 
-</main>
-<Footer/>
+  <script define:vars={{ products, pageSize }}>
 
-<script>
-  const filterButton = document.getElementById("filter-button");
-  const filters = document.getElementById("filters");
+    const state = {
+      search: '',
+      categories: new Set(),
+      price: 'all',
+      stock: false,
+      sort: 'featured',
+      page: 1,
+    };
 
-  filterButton?.addEventListener("click", () => {
-    filters?.classList.toggle("hidden");
-  });
-</script>
+
+    const grid = document.getElementById('product-grid');
+    const cards = [...document.querySelectorAll('.product-card')];
+    const searchInput = document.getElementById('product-search');
+
+    const clearSearch = document.getElementById('clear-search');
+
+    const sortSelect = document.getElementById('sort-products');
+
+    const resultCount = document.getElementById('result-count');
+
+    const mobileCount = document.getElementById('mobile-count');
+
+    const pagination = document.getElementById('pagination');
+
+    const emptyState = document.getElementById('empty-state');
+
+    const clearFilters = document.getElementById('clear-filters');
+
+    const emptyClear = document.getElementById('empty-clear');
+
+    const filterButton = document.getElementById('filter-button');
+
+    const filters = document.getElementById('filters');
+
+
+    function normalize(value) {
+      return String(value ?? '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .trim();
+    }
+
+
+    function getFilteredCards() {
+
+      let result = cards.filter((card) => {
+
+        const name = normalize(card.dataset.name);
+
+        const category = normalize(card.dataset.category);
+
+        const description = normalize(card.dataset.description);
+
+        const tags = normalize(card.dataset.tags);
+
+        const searchable = `${name} ${category} ${description} ${tags}`;
+
+        // Search
+        if (state.search && !searchable.includes(normalize(state.search))) { return false; }
+
+        // Category
+        if ( state.categories.size > 0 && !state.categories.has(category) ) { return false; }
+
+
+        // Price
+        const price = Number(card.dataset.price || 0);
+
+        if (state.price === 'under-500' && price >= 500) { return false; }
+
+        if ( state.price === '500-1000' && (price < 500 || price > 1000) ) { return false; }
+
+        if ( state.price === '1000-plus' && price < 1000 ) { return false; }
+
+        // Stock
+        if ( state.stock && Number(card.dataset.stock || 0) <= 0 ) { return false; }
+
+        return true;
+      });
+
+
+      // Sorting
+      result.sort((a, b) => {
+
+        const priceA = Number(a.dataset.price || 0);
+
+        const priceB = Number(b.dataset.price || 0);
+
+        const nameA = normalize(a.dataset.name);
+
+        const nameB = normalize(b.dataset.name);
+
+
+        switch (state.sort) {
+
+          case 'price-asc':
+            return priceA - priceB;
+
+          case 'price-desc':
+            return priceB - priceA;
+
+          case 'name-asc':
+            return nameA.localeCompare(nameB);
+
+          case 'name-desc':
+            return nameB.localeCompare(nameA);
+
+          default:
+            return 0;
+        }
+
+      });
+
+      return result;
+    }
+
+
+    function updateURL() {
+
+      const params = new URLSearchParams();
+
+      if (state.search) { params.set('search', state.search); }
+
+      if (state.categories.size) {
+        params.set( 'category', [...state.categories].join(',') );
+      }
+
+      if (state.price !== 'all') {
+        params.set('price', state.price);
+      }
+
+      if (state.stock) {
+        params.set('stock', '1');
+      }
+
+      if (state.sort !== 'featured') {
+        params.set('sort', state.sort);
+      }
+
+      if (state.page > 1) {
+        params.set('page', String(state.page));
+      }
+
+
+      const query = params.toString();
+
+      const url = `${location.pathname}${query ? `?${query}` : ''}`;
+
+      history.replaceState(null, '', url);
+
+    }
+
+
+    function renderPagination(total) {
+
+      pagination.innerHTML = '';
+
+      const totalPages = Math.ceil(total / pageSize);
+
+      if (totalPages <= 1) { return; }
+
+
+      function createButton( label, page, disabled = false, active = false ) {
+
+        const button = document.createElement('button');
+
+        button.type = 'button';
+
+        button.textContent = label;
+
+        button.disabled = disabled;
+
+        button.setAttribute( 'aria-label', `Page ${page}` );
+
+        if (active) {
+          button.setAttribute( 'aria-current', 'page' );
+        }
+
+
+        button.className = active
+          ? 'flex h-10 min-w-10 items-center justify-center rounded-lg bg-indigo-600 px-3 text-sm font-semibold text-white'
+          : 'flex h-10 min-w-10 items-center justify-center rounded-lg border border-gray-200 bg-white px-3 text-sm text-gray-600 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-40';
+
+
+        button.addEventListener('click', () => {
+            state.page = page;
+            render();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        );
+        pagination.appendChild(button);
+      }
+
+      createButton( '‹', state.page - 1, state.page === 1 );
+
+      const maxButtons = 5;
+
+      let start = Math.max( 1, state.page - Math.floor(maxButtons / 2) );
+
+      let end = Math.min( totalPages, start + maxButtons - 1 );
+
+
+      if (end - start < maxButtons - 1) {
+        start = Math.max( 1, end - maxButtons + 1 );
+      }
+
+
+      if (start > 1) {
+
+        createButton( '1', 1, false, state.page === 1 );
+
+        if (start > 2) {
+          const dots = document.createElement('span');
+
+          dots.className = 'px-1 text-gray-400';
+
+          dots.textContent = '…';
+
+          pagination.appendChild(dots);
+        }
+
+      }
+
+
+      for ( let i = start; i <= end; i++ ) {
+        createButton( String(i), i, false, i === state.page );
+      }
+
+      if (end < totalPages) {
+        if (end < totalPages - 1) {
+
+          const dots = document.createElement('span');
+
+          dots.className = 'px-1 text-gray-400';
+
+          dots.textContent = '…';
+
+          pagination.appendChild(dots);
+
+        }
+
+        createButton( String(totalPages), totalPages, false, state.page === totalPages );
+      }
+
+
+      createButton( '›', state.page + 1, state.page === totalPages );
+
+    }
+
+
+    function render() {
+
+      const filtered = getFilteredCards();
+
+      const total = filtered.length;
+
+      const totalPages = Math.max( 1, Math.ceil(total / pageSize) );
+
+      if (state.page > totalPages) {
+        state.page = totalPages;
+      }
+
+
+      const start = (state.page - 1) * pageSize;
+
+      const end = start + pageSize;
+
+      const visible = filtered.slice(start, end);
+
+      // Hide everything first
+      cards.forEach((card) => { card.hidden = true; });
+
+      // Show current page
+      visible.forEach((card) => {
+
+        card.hidden = false;
+
+        // Keep selected order
+        grid.appendChild(card);
+
+      });
+
+
+      resultCount.textContent = String(total);
+
+      mobileCount.textContent = `${total} products`;
+
+      emptyState.classList.toggle( 'hidden', total !== 0 );
+
+      grid.classList.toggle( 'hidden', total === 0 );
+
+      renderPagination(total);
+
+      clearFilters.classList.toggle('hidden', !( state.search || state.categories.size || state.price !== 'all' || state.stock ) );
+
+      clearSearch.classList.toggle( 'hidden', !state.search );
+
+      clearSearch.classList.toggle( 'flex', !!state.search );
+
+      updateURL();
+    }
+
+
+    function resetFilters() {
+      state.search = '';
+      state.categories.clear();
+      state.price = 'all';
+      state.stock = false;
+      state.sort = 'featured';
+      state.page = 1;
+
+      searchInput.value = '';
+
+      sortSelect.value = 'featured';
+
+      document.querySelectorAll('.category-filter').forEach((input) => { input.checked = input.value === 'all'; });
+
+      document.querySelectorAll('.price-filter').forEach((input) => { input.checked = input.value === 'all'; });
+
+      document.getElementById('stock-filter' ).checked = false;
+
+      render();
+    }
+
+
+    // Search
+    searchInput.addEventListener( 'input', (event) => {
+        state.search = event.target.value.trim();
+        state.page = 1;
+        render();
+      }
+    );
+
+
+    clearSearch.addEventListener('click', () => {
+
+        searchInput.value = '';
+
+        state.search = '';
+
+        state.page = 1;
+
+        render();
+
+        searchInput.focus();
+      }
+    );
+
+
+    // Sort
+    sortSelect.addEventListener( 'change', (event) => {
+        state.sort = event.target.value;
+        state.page = 1;
+        render();
+      }
+    );
+
+
+    // Categories
+    document.querySelectorAll('.category-filter').forEach((input) => {
+        input.addEventListener( 'change', () => {
+          if (input.value === 'all') {
+            document.querySelectorAll('.category-filter').forEach((item) => {
+              item.checked = item.value === 'all';
+            });
+
+            state.categories.clear();
+
+          } else {
+
+            const all = document.querySelector( '.category-filter[value="all"]' );
+
+            all.checked = false;
+
+            if (input.checked) {
+              state.categories.add( normalize(input.value) );
+            } else {
+              state.categories.delete( normalize(input.value) );
+            }
+
+            if ( state.categories.size === 0 ) { all.checked = true; }
+          }
+
+          state.page = 1;
+
+          render();
+        }
+      );
+    });
+
+
+    // Price
+    document.querySelectorAll('.price-filter') .forEach((input) => {
+      input.addEventListener('change', () => {
+        state.price = input.value;
+        state.page = 1;
+        render();
+      });
+    });
+
+
+    // Stock
+    document.getElementById('stock-filter').addEventListener( 'change', (event) => {
+
+      state.stock = event.target.checked;
+
+      state.page = 1;
+
+      render();
+    });
+
+
+    // Clear filters
+    clearFilters.addEventListener('click', resetFilters);
+
+    emptyClear.addEventListener('click', resetFilters);
+
+
+    // Mobile filters
+    filterButton?.addEventListener('click', () => {
+
+      const isHidden = filters.classList.contains('hidden');
+
+      filters.classList.toggle('hidden');
+
+      filterButton.setAttribute('aria-expanded', String(isHidden));
+    });
+
+
+    // Initial URL state
+    const params = new URLSearchParams(location.search);
+
+    const initialSearch = params.get('search');
+
+    if (initialSearch) {
+      state.search = initialSearch;
+      searchInput.value = initialSearch;
+    }
+
+    const initialCategory = params.get('category');
+
+    if (initialCategory) {
+
+      const categories = initialCategory .split(',') .map(normalize) .filter(Boolean);
+
+      state.categories = new Set(categories);
+
+      document.querySelectorAll('.category-filter') .forEach((input) => {
+
+        if ( input.value !== 'all' ) {
+          input.checked = state.categories.has( normalize(input.value) );
+        }
+      });
+
+      const all = document.querySelector( '.category-filter[value="all"]' );
+      all.checked = state.categories.size === 0;
+    }
+
+
+    const initialPrice = params.get('price');
+
+    if (initialPrice) {
+
+      state.price = initialPrice;
+
+      const input = document.querySelector( `.price-filter[value="${CSS.escape(initialPrice)}"]` );
+
+      if (input) { input.checked = true; }
+    }
+
+
+    state.stock = params.get('stock') === '1';
+
+    document.getElementById( 'stock-filter' ).checked = state.stock;
+
+    const initialSort = params.get('sort');
+
+    if (initialSort) {
+      state.sort = initialSort;
+      sortSelect.value = initialSort;
+    }
+
+    const initialPage = Number(params.get('page'));
+
+    if ( Number.isInteger(initialPage) && initialPage > 0 ) {
+      state.page = initialPage;
+    }
+    render();
+  </script>
 </Layout>
