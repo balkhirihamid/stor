@@ -9,6 +9,7 @@ function getSiteConfig() {
     return { site: 'http://localhost:4321', base: '/'};
   }
 
+  //this cade has no effect cause CNAME not needed
   if (fs.existsSync('./public/CNAME')) {
     const domain = fs.readFileSync('./public/CNAME', 'utf8').trim();
     if (domain) { return { site: `https://${domain}`, base: '/'}}
