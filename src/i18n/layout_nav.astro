@@ -1,0 +1,46 @@
+---
+import { getLangFromUrl, useTranslations, getDirection } from '../i18n/utils';
+import { languages } from '../i18n/ui';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+const currentLang = getLangFromUrl(Astro.url);
+const t = useTranslations(currentLang);
+const dir = getDirection(currentLang);
+---
+
+<!doctype html>
+<html lang={currentLang} dir={dir}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <style>
+      body { font-family: system-ui, sans-serif; padding: 2rem; max-width: 800px; margin: 0 auto; }
+      nav { display: flex; gap: 1rem; margin-bottom: 2rem; align-items: center; }
+      .switcher { margin-inline-start: auto; display: flex; gap: 0.5rem; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href={currentLang === 'ar' ? '/' : `/${currentLang}/`}>{t('nav.home')}</a>
+        <a href={currentLang === 'ar' ? '/about' : `/${currentLang}/about`}>{t('nav.about')}</a>
+
+        <!-- مبدّل اللغات Switcher -->
+        <div class="switcher">
+          {Object.entries(languages).map(([lang, { name }]) => (
+            <a href={lang === 'ar' ? '/' : `/${lang}/`}>[{name}]</a>
+          ))}
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>

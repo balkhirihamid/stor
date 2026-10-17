@@ -1,5 +1,12 @@
 ---
 import { info } from "../data/products";
+import { 
+  IconBrandInstagram, IconBrandFacebook, 
+  IconBrandYoutube, IconBrandX, IconBrandGithub, 
+  IconBrandLinkedin, IconBrandTiktok, IconMail, IconPhone } 
+from '@tabler/icons-astro'
+
+const social = info.media.split(',').map(social => social.trim().toLowerCase());
 ---
 
 <!-- Footer -->
@@ -17,23 +24,40 @@ import { info } from "../data/products";
 
         <!-- Social -->
         <div class="mt-6 flex items-center gap-3">
-          <a href="#" aria-label="Facebook" class="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 text-gray-500 transition hover:border-gray-900 hover:text-gray-900" > <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"> <path d="M13.5 8H16V4h-2.5C10.5 4 9 5.7 9 8.5V11H6v4h3v5h4v-5h3l.5-4H13v-2.2c0-.6.2-.8.5-.8Z" /> </svg> </a>
-          <a href="#" aria-label="Instagram" class="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 text-gray-500 transition hover:border-gray-900 hover:text-gray-900" >
-            <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-              <rect x="3" y="3" width="18" height="18" rx="5" />
-              <circle cx="12" cy="12" r="4" />
-              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
-            </svg>
-          </a>
+          {social.some(e=>e.includes("instagram")) && (<a class="border border-gray-200 rounded-full size-10 text-gray-500 hover:text-pink-600 flex justify-center items-center"
+            href={social.find(s => s.includes("instagram"))} target="_blank" rel="noopener noreferrer">
+            <IconBrandInstagram class="size-5" />
+          </a>)}
 
-          <a href="#" aria-label="TikTok" class="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 text-gray-500 transition hover:border-gray-900 hover:text-gray-900" >
-            <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"> <path d="M15.5 3c.3 2.2 1.5 3.6 3.5 3.8v3.1c-1.4-.1-2.6-.5-3.5-1.2v6.4c0 3.5-2.5 5.9-6 5.9-3.2 0-5.5-2.2-5.5-5.2 0-3.3 2.7-5.6 6.4-5.6v3.2c-1.8-.1-3.1.8-3.1 2.3 0 1.2.9 2.1 2.2 2.1 1.5 0 2.3-1 2.3-2.9V3h3.7Z" /> </svg>
-          </a>
+          {social.some(e=>e.includes("facebook")) && (<a class="border border-gray-200 rounded-full size-10 text-gray-500 hover:text-blue-500 flex justify-center items-center"
+            href={social.find(s => s.includes("facebook"))} target="_blank" rel="noopener noreferrer">
+            <IconBrandFacebook class="size-5" />
+          </a>)}
 
-          <a href="#" aria-label="X" class="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 text-gray-500 transition hover:border-gray-900 hover:text-gray-900" >
-            <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"> <path d="M18.9 2H22l-6.8 7.8L23.2 22h-6.4l-5-6.6L6 22H2.9l7.2-8.2L2.4 2H9l4.5 6L18.9 2Zm-1.1 17.6h1.8L8.9 4.3H7L17.8 19.6Z" /> </svg>
-          </a>
+          {social.some(e=>e.includes("youtube")) && (<a class="border border-gray-200 rounded-full size-10 text-gray-500 hover:text-red-500 flex justify-center items-center"
+            href={social.find(s => s.includes("youtube"))} target="_blank" rel="noopener noreferrer">
+            <IconBrandYoutube class="size-5" />
+          </a>)}
 
+          {social.some(e=>e.includes("x.com")) && (<a class="border border-gray-200 rounded-full size-10 text-gray-500 hover:text-gray-900 flex justify-center items-center"
+            href={social.find(s => s.includes("x.com"))} target="_blank" rel="noopener noreferrer">
+            <IconBrandX class="size-5" />
+          </a>)}
+
+          {social.some(e=>e.includes("linkedin")) && (<a class="border border-gray-200 rounded-full size-10 text-gray-500 hover:text-blue-800 flex justify-center items-center"
+            href={social.find(s => s.includes("linkedin"))} target="_blank" rel="noopener noreferrer">
+            <IconBrandLinkedin class="size-5" />
+          </a>)}
+
+          {social.some(e=>e.includes("github")) && (<a class="border border-gray-200 rounded-full size-10 text-gray-500 hover:text-gray-700 flex justify-center items-center"
+            href={social.find(s => s.includes("github"))} target="_blank" rel="noopener noreferrer">
+            <IconBrandGithub class="size-5" />
+          </a>)}
+
+          {social.some(e=>e.includes("tiktok")) && (<a class="border border-gray-200 rounded-full size-10 text-gray-500 hover:text-gray-700 flex justify-center items-center"
+            href={social.find(s => s.includes("tiktok"))} target="_blank" rel="noopener noreferrer">
+            <IconBrandTiktok class="size-5" />
+          </a>)}
         </div>
 
       </div>

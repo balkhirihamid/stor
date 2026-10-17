@@ -1,0 +1,101 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../ui/navbar.astro';
+import Footer from '../ui/footer.astro';
+import { 
+  IconBrandInstagram, IconBrandFacebook, 
+  IconBrandYoutube, IconBrandX, IconBrandGithub, 
+  IconBrandLinkedin, IconBrandTiktok, IconMail, IconPhone } from '@tabler/icons-astro'
+import { info } from '../data/products';
+
+const social = info.media.split(',').map(social => social.trim().toLowerCase());
+---
+
+<Layout title="Contact Us" description="Contact our team.">
+  <Navbar />
+
+  <main class="min-h-[70vh] w-full bg-white px-4 py-12 flex flex-col items-center sm:py-16">
+    <div class="text-center">
+      <span class="text-3xl block font-bold tracking-tight text-gray-900 sm:text-4xl"> Contacter Nous </span>
+    </div>
+    <div class="flex items-center gap-6 p-8">
+      {social.some(e=>e.includes("instagram")) && (<a class="border border-gray-200 rounded-full size-10 text-gray-500 hover:text-pink-600 flex justify-center items-center"
+        href={social.find(s => s.includes("instagram"))} target="_blank" rel="noopener noreferrer">
+        <IconBrandInstagram class="size-5" />
+      </a>)}
+
+      {social.some(e=>e.includes("facebook")) && (<a class="border border-gray-200 rounded-full size-10 text-gray-500 hover:text-blue-500 flex justify-center items-center"
+        href={social.find(s => s.includes("facebook"))} target="_blank" rel="noopener noreferrer">
+        <IconBrandFacebook class="size-5" />
+      </a>)}
+
+      {social.some(e=>e.includes("youtube")) && (<a class="border border-gray-200 rounded-full size-10 text-gray-500 hover:text-red-500 flex justify-center items-center"
+        href={social.find(s => s.includes("youtube"))} target="_blank" rel="noopener noreferrer">
+        <IconBrandYoutube class="size-5" />
+      </a>)}
+
+      {social.some(e=>e.includes("x.com")) && (<a class="border border-gray-200 rounded-full size-10 text-gray-500 hover:text-gray-900 flex justify-center items-center"
+        href={social.find(s => s.includes("x.com"))} target="_blank" rel="noopener noreferrer">
+        <IconBrandX class="size-5" />
+      </a>)}
+
+      {social.some(e=>e.includes("linkedin")) && (<a class="border border-gray-200 rounded-full size-10 text-gray-500 hover:text-blue-800 flex justify-center items-center"
+        href={social.find(s => s.includes("linkedin"))} target="_blank" rel="noopener noreferrer">
+        <IconBrandLinkedin class="size-5" />
+      </a>)}
+
+      {social.some(e=>e.includes("github")) && (<a class="border border-gray-200 rounded-full size-10 text-gray-500 hover:text-gray-700 flex justify-center items-center"
+        href={social.find(s => s.includes("github"))} target="_blank" rel="noopener noreferrer">
+        <IconBrandGithub class="size-5" />
+      </a>)}
+
+      {social.some(e=>e.includes("tiktok")) && (<a class="border border-gray-200 rounded-full size-10 text-gray-500 hover:text-gray-700 flex justify-center items-center"
+        href={social.find(s => s.includes("tiktok"))} target="_blank" rel="noopener noreferrer">
+        <IconBrandTiktok class="size-5" />
+      </a>)}
+
+    </div>
+    <div class="w-full flex justify-center">
+      <div class="flex flex-col overflow-hidden rounded-2xl border p-8 flex-1 max-w-2xl border-gray-200">
+        <form class="flex flex-1 flex-col gap-4">
+
+          <div>
+            <label for="name" class="mb-2 block text-sm  w-96 font-medium text-gray-700">Nom complet</label>
+            <input id="name" name="Name" type="text" placeholder="John Doe" required
+              class="w-full rounded-lg border border-gray-200 bg-gray-50 p-2 text-sm outline-none transition focus:border-gray-900 focus:bg-white"
+            />
+          </div>
+
+          <div>
+            <label for="email" class="mb-2 block text-sm font-medium text-gray-700">E-mail</label>
+            <input id="email" name="Email" type="email" placeholder="john@example.com" required
+              class="w-full rounded-lg border border-gray-200 bg-gray-50 p-2 text-sm outline-none transition focus:border-gray-900 focus:bg-white"
+            />
+          </div>
+
+          <div>
+            <label for="subject" class="mb-2 block text-sm font-medium text-gray-700">Sujet</label>
+            <input id="subject" name="Subject" type="text" placeholder="How can we help?" required
+              class="w-full rounded-lg border border-gray-200 bg-gray-50 p-2 text-sm outline-none transition focus:border-gray-900 focus:bg-white"
+            />
+          </div>
+
+          <div>
+            <label for="message" class="mb-2 block text-sm font-medium text-gray-700">Message</label>
+            <textarea id="message" name="Message" rows="5" placeholder="Write your message here..." required
+              class="w-full resize-y rounded-lg border border-gray-200 bg-gray-50 p-2 text-sm outline-none transition focus:border-gray-900 focus:bg-white"
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-gray-900 px-5 py-2 text-sm font-semibold text-white transition hover:bg-gray-700 sm:w-auto"
+          > Envoyer le message
+          </button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

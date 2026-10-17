@@ -9,7 +9,6 @@ function getSiteConfig() {
     return { site: 'http://localhost:4321', base: '/'};
   }
 
-  //this cade has no effect cause CNAME not needed
   if (fs.existsSync('./public/CNAME')) {
     const domain = fs.readFileSync('./public/CNAME', 'utf8').trim();
     if (domain) { return { site: `https://${domain}`, base: '/'}}
@@ -30,12 +29,13 @@ function getSiteConfig() {
 
   return { site: `https://${owner}.github.io/${repo}/`, base: `/${repo}/` };
 }
+
 const { site, base } = getSiteConfig();
 
 export default defineConfig({
   integrations: [sitemap()],
   output: 'static',
-  site, base,
+  site: 'https://store.pro-max.org/',
   vite: {
     plugins: [tailwindcss()]
   },
