@@ -35,7 +35,8 @@ const { site, base } = getSiteConfig();
 export default defineConfig({
   integrations: [sitemap()],
   output: 'static',
-  site: 'https://store.pro-max.org/',
+  base,
+  site,
   vite: {
     plugins: [tailwindcss()]
   },
