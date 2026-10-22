@@ -14,24 +14,24 @@ const pageSize = 12;
 <Layout>
   <Navbar />
 
-  <main class="min-h-screen bg-gray-50">
+  <main class="min-h-screen bg-gray-50 dark:bg-gray-950">
 
     <!-- Page Header -->
-    <section class="border-b border-gray-200 bg-white">
+    <section class="border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950">
       <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
 
         <div class="flex flex-col gap-6">
 
           <div>
-            <p class="mb-2 text-sm font-medium text-indigo-600">
+            <p class="mb-2 text-sm font-medium text-indigo-600 dark:text-indigo-400">
               Shop
             </p>
 
-            <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl dark:text-gray-100">
               All Products
             </h1>
 
-            <p class="mt-2 max-w-xl text-sm text-gray-500">
+            <p class="mt-2 max-w-xl text-sm text-gray-500 dark:text-gray-400">
               Discover our products and find exactly what you need.
             </p>
           </div>
@@ -43,7 +43,7 @@ const pageSize = 12;
             <div class="relative flex-1">
               <label for="product-search" class="sr-only"> Search products </label>
 
-              <svg class="pointer-events-none absolute inset-s-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true" >
+              <svg class="pointer-events-none absolute inset-s-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true" >
                 <circle cx="11" cy="11" r="7" />
                 <path d="m20 20-3.5-3.5" />
               </svg>
@@ -53,21 +53,21 @@ const pageSize = 12;
                 type="search"
                 placeholder="Search products..."
                 autocomplete="off"
-                class="h-11 w-full rounded-lg border border-gray-200 bg-white ps-10 pe-10 text-sm text-gray-700 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+                class="h-11 w-full rounded-lg border border-gray-200 bg-white ps-10 pe-10 text-sm text-gray-700 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 dark:border-gray-800 dark:bg-gray-800 dark:text-gray-200 dark:placeholder:text-gray-500 dark:focus:border-indigo-400 dark:focus:ring-indigo-950"
               />
 
               <button
                 id="clear-search"
                 type="button"
-                class="absolute inset-e-2 top-1/2 hidden h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md text-gray-400 hover:bg-gray-100 hover:text-gray-700"
+                class="absolute inset-e-2 top-1/2 hidden h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md text-gray-400 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-500 dark:hover:bg-gray-700 dark:hover:text-gray-200"
                 aria-label="Clear search"
               > × </button>
             </div>
 
             <!-- Sort -->
             <div class="flex items-center gap-3">
-              <label for="sort-products" class="hidden text-sm text-gray-500 sm:block" > Sort by </label>
-              <select id="sort-products" class="h-11 rounded-lg border border-gray-200 bg-white px-3 text-sm text-gray-700 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100" >
+              <label for="sort-products" class="hidden text-sm text-gray-500 sm:block dark:text-gray-400" > Sort by </label>
+              <select id="sort-products" class="h-11 rounded-lg border border-gray-200 bg-white px-3 text-sm text-gray-700 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 dark:border-gray-800 dark:bg-gray-800 dark:text-gray-200 dark:focus:border-indigo-400 dark:focus:ring-indigo-950" >
                 <option value="featured">Featured</option>
                 <option value="newest">Newest</option>
                 <option value="price-asc">Price: Low to High</option>
@@ -93,7 +93,7 @@ const pageSize = 12;
           type="button"
           aria-expanded="false"
           aria-controls="filters"
-          class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
+          class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800"
         >
 
           <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true" >
@@ -102,7 +102,7 @@ const pageSize = 12;
           Filters
         </button>
 
-        <span id="mobile-count" class="text-sm text-gray-500" > {products.length} products </span>
+        <span id="mobile-count" class="text-sm text-gray-500 dark:text-gray-400" > {products.length} products </span>
 
       </div>
 
@@ -115,9 +115,9 @@ const pageSize = 12;
           <div class="sticky top-24 space-y-6">
 
             <!-- Categories -->
-            <div class="rounded-xl border border-gray-200 bg-white p-5">
+            <div class="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-900">
 
-              <h2 class="text-sm font-semibold text-gray-900"> Categories </h2>
+              <h2 class="text-sm font-semibold text-gray-900 dark:text-gray-200"> Categories </h2>
 
               <div class="mt-4 space-y-3">
 
@@ -129,10 +129,10 @@ const pageSize = 12;
                     name="category"
                     value="all"
                     checked
-                    class="category-filter h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                    class="category-filter h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-800 dark:checked:bg-indigo-600"
                   />
 
-                  <span class="text-sm text-gray-600"> All </span>
+                  <span class="text-sm text-gray-600 dark:text-gray-400"> All </span>
                 </label>
 
                 {
@@ -142,9 +142,9 @@ const pageSize = 12;
                         type="checkbox"
                         name="category"
                         value={category}
-                        class="category-filter h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        class="category-filter h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-800 dark:checked:bg-indigo-600"
                       />
-                      <span class="text-sm text-gray-600"> {category} </span>
+                      <span class="text-sm text-gray-600 dark:text-gray-400"> {category} </span>
                     </label>
                   ))
                 }
@@ -153,8 +153,8 @@ const pageSize = 12;
 
 
             <!-- Price -->
-            <div class="rounded-xl border border-gray-200 bg-white p-5">
-              <h2 class="text-sm font-semibold text-gray-900"> Price </h2>
+            <div class="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-900">
+              <h2 class="text-sm font-semibold text-gray-900 dark:text-gray-200"> Price </h2>
 
               <div class="mt-4 space-y-3">
 
@@ -164,17 +164,17 @@ const pageSize = 12;
                     name="price"
                     value="all"
                     checked
-                    class="price-filter h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                    class="price-filter h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-800"
                   />
-                  <span class="text-sm text-gray-600"> All prices </span>
+                  <span class="text-sm text-gray-600 dark:text-gray-400"> All prices </span>
                 </label>
 
                 <label class="flex cursor-pointer items-center gap-3">
                   <input
                     type="radio" name="price" value="under-500"
-                    class="price-filter h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                    class="price-filter h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-800"
                   />
-                  <span class="text-sm text-gray-600"> Under $500 </span>
+                  <span class="text-sm text-gray-600 dark:text-gray-400"> Under $500 </span>
                 </label>
 
                 <label class="flex cursor-pointer items-center gap-3">
@@ -182,9 +182,9 @@ const pageSize = 12;
                     type="radio"
                     name="price"
                     value="500-1000"
-                    class="price-filter h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                    class="price-filter h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-800"
                   />
-                  <span class="text-sm text-gray-600"> $500 - $1,000 </span>
+                  <span class="text-sm text-gray-600 dark:text-gray-400"> $500 - $1,000 </span>
                 </label>
 
                 <label class="flex cursor-pointer items-center gap-3">
@@ -192,9 +192,9 @@ const pageSize = 12;
                     type="radio"
                     name="price"
                     value="1000-plus"
-                    class="price-filter h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                    class="price-filter h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-800"
                   />
-                  <span class="text-sm text-gray-600"> $1,000+ </span>
+                  <span class="text-sm text-gray-600 dark:text-gray-400"> $1,000+ </span>
                 </label>
 
               </div>
@@ -203,17 +203,17 @@ const pageSize = 12;
 
 
             <!-- Availability -->
-            <div class="rounded-xl border border-gray-200 bg-white p-5">
-              <h2 class="text-sm font-semibold text-gray-900"> Availability </h2>
+            <div class="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-900">
+              <h2 class="text-sm font-semibold text-gray-900 dark:text-gray-200"> Availability </h2>
               <label class="mt-4 flex cursor-pointer items-center gap-3">
 
                 <input
                   id="stock-filter"
                   type="checkbox"
-                  class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                  class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-800 dark:checked:bg-indigo-600"
                 />
 
-                <span class="text-sm text-gray-600"> In stock </span>
+                <span class="text-sm text-gray-600 dark:text-gray-400"> In stock </span>
               </label>
             </div>
           </div>
@@ -225,16 +225,16 @@ const pageSize = 12;
 
           <div class="mb-5 flex items-center justify-between">
 
-            <p class="text-sm text-gray-500">
+            <p class="text-sm text-gray-500 dark:text-gray-400">
               Showing
-              <span id="result-count" class="font-medium text-gray-900" > {products.length} </span>
+              <span id="result-count" class="font-medium text-gray-900 dark:text-gray-200" > {products.length} </span>
               products
             </p>
 
             <button
               id="clear-filters"
               type="button"
-              class="hidden text-sm font-medium text-indigo-600 hover:text-indigo-700"
+              class="hidden text-sm font-medium text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
             > Clear filters </button>
 
           </div>
@@ -265,7 +265,7 @@ const pageSize = 12;
 
                     <!-- Image -->
                     <div class="relative">
-                      <a href={`${import.meta.env.BASE_URL}shop/${product.id}`} class="relative block aspect-square overflow-hidden rounded-xl bg-gray-100" >
+                      <a href={`${import.meta.env.BASE_URL}shop/${product.id}`} class="relative block aspect-square overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800" >
                         <img
                           src={image}
                           alt={product.name}
@@ -288,7 +288,7 @@ const pageSize = 12;
                       <!-- Wishlist -->
                       <button
                         type="button"
-                        class="absolute inset-e-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-gray-600 shadow-sm backdrop-blur transition hover:bg-white hover:text-red-500"
+                        class="absolute inset-e-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-gray-600 shadow-sm backdrop-blur transition hover:bg-white hover:text-red-500 dark:bg-gray-800/90 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-red-400"
                         aria-label={`Add ${product.name} to wishlist`}
                       >
                         <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true" >
@@ -301,17 +301,17 @@ const pageSize = 12;
                     <!-- Product Info -->
                     <div class="pt-4">
                       {
-                        <p class="text-xs font-medium text-gray-400"> {product.category??'unv'} </p>
+                        <p class="text-xs font-medium text-gray-400 dark:text-gray-500"> {product.category??'unv'} </p>
                       }
-                      <h2 class="mt-1 truncate text-sm font-medium text-gray-900">
-                        <a href={`${import.meta.env.BASE_URL}shop/${product.id}`} class="transition hover:text-indigo-600" >
+                      <h2 class="mt-1 truncate text-sm font-medium text-gray-900 dark:text-gray-200">
+                        <a href={`${import.meta.env.BASE_URL}shop/${product.id}`} class="transition hover:text-indigo-600 dark:hover:text-indigo-400" >
                           {product.name}
                         </a>
                       </h2>
 
 
                       <div class="mt-2 flex items-center gap-2">
-                        <span class="text-sm font-bold text-gray-900">
+                        <span class="text-sm font-bold text-gray-900 dark:text-gray-100">
                           {product.currency === 'USD' ? '$' : product.currency}
                           {product.price.toFixed(2)}
                         </span>
@@ -319,7 +319,7 @@ const pageSize = 12;
                         {
                           product.oldPrice &&
                           product.oldPrice > product.price && (
-                            <span class="text-xs text-gray-400 line-through">
+                            <span class="text-xs text-gray-400 line-through dark:text-gray-500">
                               {product.currency === 'USD' ? '$' : product.currency}
                               {product.oldPrice.toFixed(2)}
                             </span>
@@ -332,7 +332,7 @@ const pageSize = 12;
                       <!-- Add to cart -->
                       <button
                         type="button"
-                        class="add-to-cart mt-3 flex w-full items-center justify-center gap-2 rounded-lg bg-gray-900 px-3 py-2.5 text-xs font-semibold text-white transition hover:bg-indigo-600 active:scale-[0.98]"
+                        class="add-to-cart mt-3 flex w-full items-center justify-center gap-2 rounded-lg bg-gray-900 px-3 py-2.5 text-xs font-semibold text-white transition hover:bg-indigo-600 active:scale-[0.98] dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-indigo-600"
                         data-product-id={product.id}
                         aria-label={`Add ${product.name} to cart`}
                       >
@@ -355,19 +355,19 @@ const pageSize = 12;
 
           <!-- Empty -->
           <div id="empty-state" class="hidden py-20 text-center" >
-            <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gray-100">
-              <svg class="h-7 w-7 text-gray-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true" >
+            <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800">
+              <svg class="h-7 w-7 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true" >
                 <circle cx="11" cy="11" r="7" />
                 <path d="m20 20-3.5-3.5" />
               </svg>
             </div>
 
-            <h2 class="mt-5 text-lg font-semibold text-gray-900"> No products found </h2>
-            <p class="mt-2 text-sm text-gray-500"> Try changing your search or filters. </p>
+            <h2 class="mt-5 text-lg font-semibold text-gray-900 dark:text-gray-100"> No products found </h2>
+            <p class="mt-2 text-sm text-gray-500 dark:text-gray-400"> Try changing your search or filters. </p>
             <button
               id="empty-clear"
               type="button"
-              class="mt-5 rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-600"
+              class="mt-5 rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-600 dark:bg-gray-800 dark:hover:bg-indigo-600"
             >
               Clear filters
             </button>

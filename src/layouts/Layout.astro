@@ -182,12 +182,12 @@ const breadcrumbSchema =
 
 <!doctype html>
 <html lang="en">
-<head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width" />
-	<link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
-	<link rel="icon" href={`${import.meta.env.BASE_URL}favicon.png`} />
-	<meta name="generator" content={Astro.generator} />
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
+    <link rel="icon" href={`${import.meta.env.BASE_URL}favicon.png`} />
+    <meta name="generator" content={Astro.generator} />
     <link rel="sitemap" href={`${import.meta.env.BASE_URL}sitemap-index.xml`} />
 
     <title>{product ? productTitle : title}</title>
@@ -239,8 +239,17 @@ const breadcrumbSchema =
     <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} /> 
     {productSchema && ( <script type="application/ld+json" set:html={JSON.stringify(productSchema)} /> )} 
     {breadcrumbSchema && ( <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} /> )} -->
+    <script is:inline>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) { return localStorage.getItem('theme'); }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) { return 'dark'; }
+        return 'light';
+      })();
+
+      theme === 'dark' && document.documentElement.classList.add('dark') 
+    </script>
 	</head>
-	<body class="flex flex-col items-center min-h-screen">
+	<body class="flex flex-col items-center min-h-screen dark:bg-gray-950">
 		<slot />
 	</body>
 </html>

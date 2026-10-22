@@ -10,103 +10,98 @@ const social = info.media.split(',').map(social => social.trim().toLowerCase());
 ---
 
 <!-- Footer -->
-<footer class="border-t border-gray-200 bg-white w-full mt-10">
+<footer class="border-t border-gray-200 bg-white w-full mt-10 dark:border-gray-800 dark:bg-gray-900">
   <!-- Main Footer -->
   <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
     <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
       <!-- Brand -->
       <div class="lg:col-span-1">
-        <a href="/" class="text-xl font-bold tracking-tight text-gray-900">{info.name}.</a>
-        <p class="mt-4 max-w-xs text-sm leading-6 text-gray-500">
+        <a href="/" class="text-xl font-bold tracking-tight text-gray-900 dark:text-gray-100">{info.name}.</a>
+        <p class="mt-4 max-w-xs text-sm leading-6 text-gray-500 dark:text-gray-400">
           Discover quality products designed for everyday life.
           Simple, modern and made with you in mind.
         </p>
 
         <!-- Social -->
         <div class="mt-6 flex items-center gap-3">
-          {social.some(e=>e.includes("instagram")) && (<a class="border border-gray-200 rounded-full size-10 text-gray-500 hover:text-pink-600 flex justify-center items-center"
+          {social.some(e=>e.includes("instagram")) && (<a class="border border-gray-200 rounded-full size-10 text-gray-500 hover:text-pink-600 flex justify-center items-center dark:border-gray-800 dark:text-gray-400 dark:hover:text-pink-400"
             href={social.find(s => s.includes("instagram"))} target="_blank" rel="noopener noreferrer">
             <IconBrandInstagram class="size-5" />
           </a>)}
 
-          {social.some(e=>e.includes("facebook")) && (<a class="border border-gray-200 rounded-full size-10 text-gray-500 hover:text-blue-500 flex justify-center items-center"
+          {social.some(e=>e.includes("facebook")) && (<a class="border border-gray-200 rounded-full size-10 text-gray-500 hover:text-blue-500 flex justify-center items-center dark:border-gray-800 dark:text-gray-400 dark:hover:text-blue-400"
             href={social.find(s => s.includes("facebook"))} target="_blank" rel="noopener noreferrer">
             <IconBrandFacebook class="size-5" />
           </a>)}
 
-          {social.some(e=>e.includes("youtube")) && (<a class="border border-gray-200 rounded-full size-10 text-gray-500 hover:text-red-500 flex justify-center items-center"
+          {social.some(e=>e.includes("youtube")) && (<a class="border border-gray-200 rounded-full size-10 text-gray-500 hover:text-red-500 flex justify-center items-center dark:border-gray-800 dark:text-gray-400 dark:hover:text-red-400"
             href={social.find(s => s.includes("youtube"))} target="_blank" rel="noopener noreferrer">
             <IconBrandYoutube class="size-5" />
           </a>)}
 
-          {social.some(e=>e.includes("x.com")) && (<a class="border border-gray-200 rounded-full size-10 text-gray-500 hover:text-gray-900 flex justify-center items-center"
+          {social.some(e=>e.includes("x.com")) && (<a class="border border-gray-200 rounded-full size-10 text-gray-500 hover:text-gray-900 flex justify-center items-center dark:border-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
             href={social.find(s => s.includes("x.com"))} target="_blank" rel="noopener noreferrer">
             <IconBrandX class="size-5" />
           </a>)}
 
-          {social.some(e=>e.includes("linkedin")) && (<a class="border border-gray-200 rounded-full size-10 text-gray-500 hover:text-blue-800 flex justify-center items-center"
+          {social.some(e=>e.includes("linkedin")) && (<a class="border border-gray-200 rounded-full size-10 text-gray-500 hover:text-blue-800 flex justify-center items-center dark:border-gray-800 dark:text-gray-400 dark:hover:text-blue-400"
             href={social.find(s => s.includes("linkedin"))} target="_blank" rel="noopener noreferrer">
             <IconBrandLinkedin class="size-5" />
           </a>)}
 
-          {social.some(e=>e.includes("github")) && (<a class="border border-gray-200 rounded-full size-10 text-gray-500 hover:text-gray-700 flex justify-center items-center"
+          {social.some(e=>e.includes("github")) && (<a class="border border-gray-200 rounded-full size-10 text-gray-500 hover:text-gray-700 flex justify-center items-center dark:border-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
             href={social.find(s => s.includes("github"))} target="_blank" rel="noopener noreferrer">
             <IconBrandGithub class="size-5" />
           </a>)}
 
-          {social.some(e=>e.includes("tiktok")) && (<a class="border border-gray-200 rounded-full size-10 text-gray-500 hover:text-gray-700 flex justify-center items-center"
+          {social.some(e=>e.includes("tiktok")) && (<a class="border border-gray-200 rounded-full size-10 text-gray-500 hover:text-gray-700 flex justify-center items-center dark:border-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
             href={social.find(s => s.includes("tiktok"))} target="_blank" rel="noopener noreferrer">
             <IconBrandTiktok class="size-5" />
           </a>)}
         </div>
-
       </div>
-
 
       <!-- Shop -->
       <div>
-        <h2 class="text-sm font-semibold text-gray-900"> Shop </h2>
+        <h2 class="text-sm font-semibold text-gray-900 dark:text-gray-200"> Shop </h2>
         <ul class="mt-4 space-y-3">
-          <li> <a href="/shop" class="text-sm text-gray-500 transition hover:text-gray-900" > All Products </a> </li>
-          <li> <a href="/shop?category=Clothing" class="text-sm text-gray-500 transition hover:text-gray-900" > Clothing </a> </li>
-          <li> <a href="/shop?category=Shoes" class="text-sm text-gray-500 transition hover:text-gray-900" > Shoes </a> </li>
-          <li> <a href="/shop?category=Accessories" class="text-sm text-gray-500 transition hover:text-gray-900" > Accessories </a> </li>
+          <li> <a href="/shop" class="text-sm text-gray-500 transition hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200" > All Products </a> </li>
+          <li> <a href="/shop?category=Clothing" class="text-sm text-gray-500 transition hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200" > Clothing </a> </li>
+          <li> <a href="/shop?category=Shoes" class="text-sm text-gray-500 transition hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200" > Shoes </a> </li>
+          <li> <a href="/shop?category=Accessories" class="text-sm text-gray-500 transition hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200" > Accessories </a> </li>
         </ul>
       </div>
 
       <!-- Help -->
       <div>
-        <h2 class="text-sm font-semibold text-gray-900"> Help </h2>
+        <h2 class="text-sm font-semibold text-gray-900 dark:text-gray-200"> Help </h2>
         <ul class="mt-4 space-y-3">
-          <li> <a href="/contact" class="text-sm text-gray-500 transition hover:text-gray-900" > Contact Us </a> </li>
-          <li> <a href="/shipping" class="text-sm text-gray-500 transition hover:text-gray-900" > Shipping & Delivery </a> </li>
-          <li> <a href="/returns" class="text-sm text-gray-500 transition hover:text-gray-900" > Returns & Refunds </a> </li>
-          <li> <a href="/faq" class="text-sm text-gray-500 transition hover:text-gray-900" > FAQ </a> </li>
+          <li> <a href="/contact" class="text-sm text-gray-500 transition hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200" > Contact Us </a> </li>
+          <li> <a href="/shipping" class="text-sm text-gray-500 transition hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200" > Shipping & Delivery </a> </li>
+          <li> <a href="/returns" class="text-sm text-gray-500 transition hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200" > Returns & Refunds </a> </li>
+          <li> <a href="/faq" class="text-sm text-gray-500 transition hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200" > FAQ </a> </li>
         </ul>
       </div>
 
-
       <!-- Company -->
       <div>
-        <h2 class="text-sm font-semibold text-gray-900"> Company </h2>
+        <h2 class="text-sm font-semibold text-gray-900 dark:text-gray-200"> Company </h2>
         <ul class="mt-4 space-y-3">
-          <li> <a href="/about" class="text-sm text-gray-500 transition hover:text-gray-900" > About Us </a> </li>
-          <li> <a href="/privacy" class="text-sm text-gray-500 transition hover:text-gray-900" > Privacy Policy </a> </li>
-          <li> <a href="/terms" class="text-sm text-gray-500 transition hover:text-gray-900" > Terms & Conditions </a> </li>
-          <li> <a href="/cookies" class="text-sm text-gray-500 transition hover:text-gray-900" > Cookie Policy </a> </li>
+          <li> <a href="/about" class="text-sm text-gray-500 transition hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200" > About Us </a> </li>
+          <li> <a href="/privacy" class="text-sm text-gray-500 transition hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200" > Privacy Policy </a> </li>
+          <li> <a href="/terms" class="text-sm text-gray-500 transition hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200" > Terms & Conditions </a> </li>
+          <li> <a href="/cookies" class="text-sm text-gray-500 transition hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200" > Cookie Policy </a> </li>
         </ul>
       </div>
     </div>
 
-
     <!-- Newsletter -->
-    <div class="mt-12 border-t border-gray-100 pt-10">
+    <div class="mt-12 border-t border-gray-100 pt-10 dark:border-gray-800">
       <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <h2 class="text-sm font-semibold text-gray-900"> Subscribe to our newsletter </h2>
-          <p class="mt-1 text-sm text-gray-500"> Get updates about new products and special offers. </p>
+          <h2 class="text-sm font-semibold text-gray-900 dark:text-gray-200"> Subscribe to our newsletter </h2>
+          <p class="mt-1 text-sm text-gray-500 dark:text-gray-400"> Get updates about new products and special offers. </p>
         </div>
-
 
         <form class="flex w-full max-w-md gap-2">
           <label for="footer-email" class="sr-only"> Email address </label>
@@ -117,26 +112,25 @@ const social = info.media.split(',').map(social => social.trim().toLowerCase());
             placeholder="Your email address"
             autocomplete="email"
             required
-            class="h-11 min-w-0 flex-1 rounded-lg border border-gray-200 px-4 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-gray-900"
+            class="h-11 min-w-0 flex-1 rounded-lg border border-gray-200 px-4 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-gray-900 dark:border-gray-800 dark:bg-gray-800 dark:text-gray-100 dark:placeholder:text-gray-500 dark:focus:border-gray-600"
           />
 
-          <button type="submit" class="h-11 shrink-0 rounded-lg bg-gray-900 px-5 text-sm font-semibold text-white transition hover:bg-gray-800" > Subscribe </button>
+          <button type="submit" class="h-11 shrink-0 rounded-lg bg-gray-900 px-5 text-sm font-semibold text-white transition hover:bg-gray-800 dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-200" > Subscribe </button>
         </form>
       </div>
     </div>
   </div>
 
-
   <!-- Bottom Footer -->
-  <div class="border-t border-gray-100">
+  <div class="border-t border-gray-100 dark:border-gray-800">
     <div class="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-6 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
-      <p class="text-xs text-gray-500"> © {new Date().getFullYear()} {info.name}. All rights reserved. </p>
+      <p class="text-xs text-gray-500 dark:text-gray-400"> © {new Date().getFullYear()} {info.name}. All rights reserved. </p>
       <div class="flex items-center gap-4">
-        <span class="text-xs text-gray-400"> Secure payments </span>
-        <div class="flex items-center gap-2 text-gray-400">
-          <span class="rounded border border-gray-200 px-2 py-1 text-[10px] font-semibold"> VISA </span>
-          <span class="rounded border border-gray-200 px-2 py-1 text-[10px] font-semibold"> MC </span>
-          <span class="rounded border border-gray-200 px-2 py-1 text-[10px] font-semibold"> AMEX </span>
+        <span class="text-xs text-gray-400 dark:text-gray-500"> Secure payments </span>
+        <div class="flex items-center gap-2 text-gray-400 dark:text-gray-500">
+          <span class="rounded border border-gray-200 px-2 py-1 text-[10px] font-semibold dark:border-gray-800"> VISA </span>
+          <span class="rounded border border-gray-200 px-2 py-1 text-[10px] font-semibold dark:border-gray-800"> MC </span>
+          <span class="rounded border border-gray-200 px-2 py-1 text-[10px] font-semibold dark:border-gray-800"> AMEX </span>
         </div>
       </div>
     </div>
