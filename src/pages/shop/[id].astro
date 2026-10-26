@@ -4,6 +4,7 @@ import { products } from "../../data/products";
 import Navbar from '../../ui/navbar.astro';
 import Footer from "../../ui/footer.astro";
 import { info } from "../../data/products.ts";
+import { IconSend2, IconChevronDown, IconMessagePlus } from '@tabler/icons-astro';
 
 export function getStaticPaths() {
   return products.map((product) => ({ params: { id: String(product.id) }, props: { product }}));
@@ -12,6 +13,8 @@ export function getStaticPaths() {
 const { product } = Astro.props;
 const siteUrl = import.meta.env.SITE;
 const productUrl = `${siteUrl}shop/${product.id}`;
+const reviewScriptUrl  = 'https://script.google.com/macros/s/AKfycbzfcAd_VQZLDGsxZ0dvDmmCISwptPNtrqVBU1E38GDt4-ZMfp9-e1g4ZeQC6fGI5idu/exec';
+const productName = product.id;
 ---
 
 <Layout
@@ -262,6 +265,242 @@ const productUrl = `${siteUrl}shop/${product.id}`;
         </div>
       </div>
     </section>
+
+    <!-- Reviews party -->
+    <section id="reviews" class="border-t border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-950" >
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="mt-8 flex flex-col gap-5">
+          
+          <div class="flex flex-col w-full">
+            <button id="review-add" class="text-lg font-semibold  text-gray-900 dark:text-gray-100 flex items-center underline cursor-pointer select-none"><IconMessagePlus class="me-2 text-gray-400" /> Write a review </button>
+            
+            <div id="review-model" class="rounded-2xl hidden mt-5 border border-gray-200 bg-white p-3 shadow-sm dark:border-gray-800 dark:bg-gray-900 sm:p-7">
+            <form id="productReviewForm" class="">
+              <input type="hidden" name="ProductName" value={productName} />
+              <div class="flex gap-1 items-end">
+                <div class="flex flex-col w-full">
+
+                  <label for="review-name" class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300"> Your name </label>
+                  <input id="review-name" type="text" name="CustomerName" placeholder="Enter your name" autocomplete="name" required maxlength="80"
+                    class="h-11 w-full rounded-lg border border-gray-300 bg-white px-3 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-gray-700 dark:bg-gray-950 dark:text-gray-100 dark:placeholder:text-gray-500"
+                  />
+
+                  <label for="review-comment" class="mt-2 mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300"> Your review </label>
+                  <textarea id="review-comment" name="Comment" placeholder="Tell us what you think about this product..." required maxlength="2000"
+                    class="w-full resize-y rounded-lg border border-gray-300 bg-white px-3 py-3 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-gray-700 dark:bg-gray-950 dark:text-gray-100 dark:placeholder:text-gray-500"
+                  ></textarea>
+                </div>
+                <button id="submitBtn" type="submit"
+                  class=" rtl:rotate-180 flex items-center justify-center rounded-full bg-indigo-600 p-3 font-semibold text-white transition hover:bg-indigo-700 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60"
+                ><IconSend2 class="h-5 w-5" /></button>
+              </div>
+
+              <p id="responseMessage" class="hidden rounded-lg px-3 py-2 text-sm" role="status" aria-live="polite" ></p>
+            </form>
+          </div>
+          </div>
+          
+
+          <div class="lg:col-span-2">
+            <div class="flex flex-col gap-2 border-b border-gray-200 pb-5 dark:border-gray-800 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                  What customers say
+                </h3>
+                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                  Reviews submitted for this product.
+                </p>
+              </div>
+              <span
+                id="reviewsCount"
+                class="text-sm text-gray-500 dark:text-gray-400"
+              >Loading reviews…</span>
+            </div>
+
+            <div
+              id="loadingReviews"
+              class="mt-5 rounded-xl border border-gray-200 bg-white px-5 py-8 text-center text-sm text-gray-500 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400"
+            >
+              Loading reviews…
+            </div>
+
+            <div id="reviewsList" class="mt-5 space-y-4"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script define:vars={{ productName, reviewScriptUrl }}>
+      const reviewForm = document.getElementById("productReviewForm");
+      const responseMessage = document.getElementById("responseMessage");
+      const submitButton = document.getElementById("submitBtn");
+      const reviewsList = document.getElementById("reviewsList");
+      const loadingReviews = document.getElementById("loadingReviews");
+      const reviewsCount = document.getElementById("reviewsCount");
+      const reviewAddButton = document.getElementById("review-add");
+
+      reviewAddButton?.addEventListener("click", () => {
+        const reviewModel = document.getElementById("review-model");
+        !!reviewModel?.classList.toggle("hidden");
+      });
+
+      function showReviewMessage(message, type = "success") {
+        if (!responseMessage) return;
+
+        responseMessage.textContent = message;
+        responseMessage.classList.remove(
+          "hidden",
+          "bg-green-50",
+          "text-green-700",
+          "dark:bg-green-950",
+          "dark:text-green-300",
+          "bg-red-50",
+          "text-red-700",
+          "dark:bg-red-950",
+          "dark:text-red-300"
+        );
+
+        if (type === "success") {
+          responseMessage.classList.add(
+            "bg-green-50",
+            "text-green-700",
+            "dark:bg-green-950",
+            "dark:text-green-300"
+          );
+        } else {
+          responseMessage.classList.add(
+            "bg-red-50",
+            "text-red-700",
+            "dark:bg-red-950",
+            "dark:text-red-300"
+          );
+        }
+      }
+
+      function createReviewCard(review) {
+        const card = document.createElement("article");
+        card.className = "rounded-xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900";
+
+        const topRow = document.createElement("div");
+        topRow.className = "flex flex-wrap items-start justify-between gap-3";
+
+        const customerName = document.createElement("h4");
+        customerName.className = "break-words text-sm font-semibold text-gray-900 dark:text-gray-100";
+        customerName.textContent = String(review.name || "Customer");
+
+        const rating = Math.min(5, Math.max(1, Number.parseInt(review.rating, 10) || 5));
+        const stars = document.createElement("span");
+        stars.className = "shrink-0 text-sm tracking-wide text-amber-500";
+        stars.setAttribute("aria-label", `${rating} out of 5 stars`);
+        stars.textContent = `${"★".repeat(rating)}${"☆".repeat(5 - rating)}`;
+
+        const comment = document.createElement("p");
+        comment.className = "mt-4 whitespace-pre-wrap break-words text-sm leading-7 text-gray-600 dark:text-gray-300";
+        comment.textContent = String(review.comment || "");
+
+        const date = document.createElement("p");
+        date.className = "mt-4 text-xs text-gray-400 dark:text-gray-500";
+
+        if (review.date) {
+          const parsedDate = new Date(review.date);
+          date.textContent = Number.isNaN(parsedDate.getTime()) ? "" : parsedDate.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric", });
+        }
+
+        topRow.append(customerName, stars);
+        card.append(topRow, comment);
+
+        if (date.textContent) card.append(date);
+
+        return card;
+      }
+
+      async function loadReviews() {
+        if (!reviewsList || !loadingReviews || !reviewsCount) return;
+
+        loadingReviews.classList.remove("hidden");
+        loadingReviews.textContent = "Loading reviews…";
+        reviewsList.replaceChildren();
+        reviewsCount.textContent = "Loading…";
+
+        try {
+          const url = new URL(reviewScriptUrl);
+          url.searchParams.set("ProductName", productName);
+
+          const response = await fetch(url.toString());
+          if (!response.ok) throw new Error("Could not load reviews");
+
+          const data = await response.json();
+          if (!Array.isArray(data)) throw new Error("Unexpected reviews response");
+
+          loadingReviews.classList.add("hidden");
+
+          if (data.length === 0) {
+            reviewsCount.textContent = "0 reviews";
+            loadingReviews.textContent =
+              "No reviews yet. Be the first to share your experience.";
+            loadingReviews.classList.remove("hidden");
+            return;
+          }
+
+          const orderedReviews = [...data].reverse();
+          reviewsCount.textContent =
+            `${orderedReviews.length} ${orderedReviews.length === 1 ? "review" : "reviews"}`;
+
+          const fragment = document.createDocumentFragment();
+          orderedReviews.forEach((review) => {
+            fragment.appendChild(createReviewCard(review));
+          });
+          reviewsList.appendChild(fragment);
+        } catch (error) {
+          reviewsCount.textContent = "Reviews unavailable";
+          loadingReviews.textContent =
+            "We couldn't load reviews right now. Please try again later.";
+          loadingReviews.classList.remove("hidden");
+        }
+      }
+
+      reviewForm?.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        if (!(reviewForm instanceof HTMLFormElement) || !(submitButton instanceof HTMLButtonElement)) {
+          return;
+        }
+
+        submitButton.disabled = true;
+        submitButton.textContent = "Submitting…";
+
+        try {
+          const formData = new FormData(reviewForm);
+          const response = await fetch(reviewScriptUrl, {
+            method: "POST",
+            body: formData,
+          });
+
+          if (!response.ok) throw new Error("Could not submit review");
+
+          showReviewMessage("Thank you! Your review has been submitted.", "success");
+          reviewForm.reset();
+
+          // Keep the product name attached after resetting the form.
+          const productField = reviewForm.querySelector('input[name="ProductName"]');
+          if (productField) productField.value = productName;
+
+          await loadReviews();
+        } catch (error) {
+          showReviewMessage(
+            "We couldn't submit your review. Please try again.",
+            "error"
+          );
+        } finally {
+          submitButton.disabled = false;
+          submitButton.textContent = "Submit review";
+        }
+      });
+
+      loadReviews();
+    </script>
+    <!-- Reviews party end -->
+
   </main>
 
   <Footer/>
@@ -270,8 +509,7 @@ const productUrl = `${siteUrl}shop/${product.id}`;
 <script>
   // Image gallery
   const mainImage = document.getElementById("main-image");
-  const thumbnails =
-    document.querySelectorAll<HTMLButtonElement>(".product-thumbnail");
+  const thumbnails = document.querySelectorAll<HTMLButtonElement>(".product-thumbnail");
 
   thumbnails.forEach((thumbnail) => {
     thumbnail.addEventListener("click", () => {
