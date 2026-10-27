@@ -13,7 +13,7 @@ export function getStaticPaths() {
 const { product } = Astro.props;
 const siteUrl = import.meta.env.SITE;
 const productUrl = `${siteUrl}shop/${product.id}`;
-const reviewScriptUrl  = 'https://script.google.com/macros/s/AKfycbzFCGtDb5rwNzuXB493ekxY_p_2G2B9Pol7rWoXwUI5NC51xaXt6rUt3XblSmv3ZkB2/exec'//'https://script.google.com/macros/s/AKfycbzfcAd_VQZLDGsxZ0dvDmmCISwptPNtrqVBU1E38GDt4-ZMfp9-e1g4ZeQC6fGI5idu/exec';
+const reviewScriptUrl  = 'https://script.google.com/macros/s/AKfycbz_KXbOSRA-SwmvMGITr_quFR5HYJ-F6i7pu-QGjp5xDSaPn8ton_lnj1cS0soJODQC/exec'//'https://script.google.com/macros/s/AKfycbzfcAd_VQZLDGsxZ0dvDmmCISwptPNtrqVBU1E38GDt4-ZMfp9-e1g4ZeQC6fGI5idu/exec';
 const productName = product.id;
 ---
 
@@ -282,9 +282,7 @@ const productName = product.id;
 
             <form id="productReviewForm" class="hidden">
               <input type="hidden" id="productNameInput" name="ProductName" value="اسم المنتج الحالي" />
-              <input type="hidden" id="hiddenName" name="CustomerName" />
-              <input type="hidden" id="hiddenEmail" name="email" />
-              <input type="hidden" id="hiddenPic" name="CustomerPic" />
+              <input type="hidden" id="hiddenCredential" name="credential" />
               
               <div class="flex gap-1 items-end">
                 <img id="userPicImg" src="" alt="صورة المستخدم" crossorigin="anonymous" referrerpolicy="no-referrer" class="size-16 min-w-16 rounded-full border border-gray-300 object-cover">
@@ -310,12 +308,8 @@ const productName = product.id;
           <div class="lg:col-span-2">
             <div class="flex flex-col gap-2 border-b border-gray-200 pb-5 dark:border-gray-800 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                  What customers say
-                </h3>
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                  Reviews submitted for this product.
-                </p>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100"> What customers say </h3>
+                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400"> Reviews submitted for this product. </p>
               </div>
               <span id="reviewsCount" class="text-sm text-gray-500 dark:text-gray-400">Loading reviews…</span>
             </div>
@@ -346,29 +340,19 @@ const productName = product.id;
           var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) { return '%' + ('0' + c.charCodeAt(0).toString(16)).slice(-2)}).join(''));
           return JSON.parse(jsonPayload);
         } catch (e) {
-          console.error("JWT Error:", e); return null;
+          return null;
         }
       }
 
       function handleCredentialResponse(response) {
-        const payload = decodeJwtResponse(response.credential);
+        const token = response.credential;
+        const payload = decodeJwtResponse(token);
         if (!payload) return;
 
-        // استخراج بيانات المستخدم
-        const name = payload.name;
-        const email = payload.email;
-        const picture = payload.picture;
+        document.getElementById('hiddenCredential').value = token;
+        document.getElementById('userNameLabel').innerText = payload.name;
+        document.getElementById('userPicImg').src = payload.picture;
 
-        // تحديث الواجهة بنفس التصميم المحدد
-        document.getElementById('userNameLabel').innerText = name;
-        document.getElementById('userPicImg').src = picture;
-
-        // تعبئة الحقول المخفية
-        document.getElementById('hiddenName').value = name;
-        document.getElementById('hiddenEmail').value = email;
-        document.getElementById('hiddenPic').value = picture;
-
-        // إخفاء زر تسجيل الدخول وإظهار النموذج
         document.getElementById('googleLoginWrapper').classList.add('hidden');
         document.getElementById('productReviewForm').classList.remove('hidden');
       }
@@ -441,11 +425,15 @@ const productName = product.id;
         fetch(APPS_SCRIPT_URL, { method: 'POST', body: new FormData(form) })
           .then(res => res.json())
           .then(data => {
-            msg.className = "mt-3 rounded-lg px-3 py-2 text-sm bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 block";
-            msg.innerText = "Thank you! Your review has been submitted.";
-            document.getElementById('review-comment').value = '';
+            if(data.result === "success") {
+              msg.className = "mt-3 rounded-lg px-3 py-2 text-sm bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 block";
+              msg.innerText = "Thank you! Your review has been submitted.";
+              document.getElementById('review-comment').value = '';
+              loadReviews();
+            } else {
+              throw new Error(data.error || "Failed");
+            }
             btn.disabled = false;
-            loadReviews();
           })
           .catch(err => {
             msg.className = "mt-3 rounded-lg px-3 py-2 text-sm bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300 block";
