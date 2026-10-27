@@ -4,7 +4,7 @@ import { products } from "../../data/products";
 import Navbar from '../../ui/navbar.astro';
 import Footer from "../../ui/footer.astro";
 import { info } from "../../data/products.ts";
-import { IconSend2, IconChevronDown, IconMessagePlus } from '@tabler/icons-astro';
+import { IconSend2 } from '@tabler/icons-astro';
 
 export function getStaticPaths() {
   return products.map((product) => ({ params: { id: String(product.id) }, props: { product }}));
@@ -13,7 +13,7 @@ export function getStaticPaths() {
 const { product } = Astro.props;
 const siteUrl = import.meta.env.SITE;
 const productUrl = `${siteUrl}shop/${product.id}`;
-const reviewScriptUrl  = 'https://script.google.com/macros/s/AKfycbwXQh6Av1B7k8z3Z-C1tMHQJD5-_YlYTUUulSAzE_sNC6Rk-JzYw8VSfD89VF8urPjv/exec'//'https://script.google.com/macros/s/AKfycbzfcAd_VQZLDGsxZ0dvDmmCISwptPNtrqVBU1E38GDt4-ZMfp9-e1g4ZeQC6fGI5idu/exec';
+const reviewScriptUrl  = 'https://script.google.com/macros/s/AKfycbz8Qny-z_EiEIl_fbjsE_XwwjxdrVvGriSjjCj3G5dpmMJBYVw3fBYWEVxJn1Des5ND/exec'//'https://script.google.com/macros/s/AKfycbwXQh6Av1B7k8z3Z-C1tMHQJD5-_YlYTUUulSAzE_sNC6Rk-JzYw8VSfD89VF8urPjv/exec'
 const productName = product.id;
 ---
 
@@ -266,118 +266,89 @@ const productName = product.id;
       </div>
     </section>
 
-    <!-- Reviews party from google-->
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
 
-    <section id="reviews" class="border-t border-gray-200 bg-gray-50 py-10 dark:border-gray-800 dark:bg-gray-950">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <section id="reviews" class="border-t border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-950">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="mt-8 flex flex-col gap-5">
           
           <div id="review-model" class="rounded-2xl">
             
-            <div id="googleLoginWrapper" class="flex flex-col items-center justify-center rounded-xl border border-dashed border-gray-300 p-6 text-center dark:border-gray-700">
-              <p class="mb-3 text-sm text-gray-600 dark:text-gray-400">يرجى تسجيل الدخول بحساب Google لتشترك برأيك حول هذا المنتج:</p>
+            <div id="googleLoginWrapper" class="flex flex-col items-center justify-center rounded-xl border border-dashed border-gray-300 p-6 text-center dark:border-gray-700 bg-white dark:bg-gray-900 mb-4">
+              <p class="mb-3 text-sm text-gray-600 dark:text-gray-300">يرجى تسجيل الدخول بحساب Google لتتمكن من إضافة تقييمك بأمان:</p>
               <div id="buttonDiv"></div>
             </div>
 
             <form id="productReviewForm" class="hidden">
-              <input type="hidden" id="productNameInput" name="ProductName" value="اسم المنتج الحالي" />
-              <input type="hidden" id="hiddenName" name="CustomerName" />
-              <input type="hidden" id="hiddenEmail" name="email" />
-              <input type="hidden" id="hiddenPic" name="CustomerPic" />
-              
+              <input type="hidden" name="ProductName" id="productNameInput" value="" />
+              <input type="hidden" name="credential" id="hiddenCredential" />
               <div class="flex gap-1 items-end">
-                <img id="userPicImg" src="" alt="صورة المستخدم" crossorigin="anonymous" referrerpolicy="no-referrer" class="size-16 min-w-16 rounded-full border border-gray-300 object-cover">
+                <img id="userPicImg" src="" crossorigin="anonymous" referrerpolicy="no-referrer" alt="the image url given from google when user signed in" class="size-16 min-w-16 rounded-lg border border-gray-300 object-cover">
                 
                 <div class="flex flex-col w-full">
                   <label id="userNameLabel" for="review-comment" class="mt-2 mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300"></label>
+              
                   <textarea id="review-comment" name="Comment" placeholder="Tell us what you think about this product..." required maxlength="2000"
                     class="w-full h-16 resize-y rounded-lg border border-gray-300 bg-white px-3 py-3 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:placeholder:text-gray-500"
                   ></textarea>
                 </div>
 
-                <button id="submitBtn" type="submit" class="rtl:rotate-180 flex items-center justify-center rounded-full bg-indigo-600 p-3 font-semibold text-white transition hover:bg-indigo-700 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60">
+                <button id="submitBtn" type="submit" class="rtl:rotate-180 flex items-center justify-center rounded-full bg-indigo-600 p-3 font-semibold text-white transition hover:bg-indigo-700 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60" > 
                   <IconSend2 />
                 </button>
               </div>
-
-              <p id="responseMessage" class="hidden mt-3 rounded-lg px-3 py-2 text-sm" role="status" aria-live="polite"></p>
             </form>
-
           </div>
           
-          <!-- قسم عرض التعليقات والآراء -->
           <div class="lg:col-span-2">
             <div class="flex flex-col gap-2 border-b border-gray-200 pb-5 dark:border-gray-800 sm:flex-row sm:items-end sm:justify-between">
               <div>
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">
                   What customers say
                 </h3>
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                  Reviews submitted for this product.
-                </p>
               </div>
-              <span id="reviewsCount" class="text-sm text-gray-500 dark:text-gray-400">Loading reviews…</span>
+              <span id="reviewsCount" class="text-sm text-gray-500 dark:text-gray-400" >Loading reviews…</span>
             </div>
 
-            <div id="loadingReviews" class="mt-5 rounded-xl border border-gray-200 bg-white px-5 py-8 text-center text-sm text-gray-500 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400">
+            <div id="loadingReviews" class="mt-5 rounded-xl border border-gray-200 bg-white px-5 py-8 text-center text-sm text-gray-500 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400" >
               Loading reviews…
             </div>
-
             <div id="reviewsList" class="mt-5 space-y-4"></div>
           </div>
-
         </div>
       </div>
     </section>
 
-
     <script define:vars={{ productName, reviewScriptUrl }}>
-
       const GOOGLE_CLIENT_ID = "733687980644-vi4o228feo26o6v9j6rgs55ihj9k5cbi.apps.googleusercontent.com";
       const APPS_SCRIPT_URL = reviewScriptUrl; 
-
       document.getElementById('productNameInput').value = productName;
 
       function decodeJwtResponse(token) {
         try {
           var base64Url = token.split('.')[1];
           var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-          var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) { return '%' + ('0' + c.charCodeAt(0).toString(16)).slice(-2)}).join(''));
+          var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) { return '%' + ('0' + c.charCodeAt(0).toString(16)).slice(-2) }).join(''));
           return JSON.parse(jsonPayload);
-        } catch (e) {
-          console.error("JWT Error:", e); return null;
-        }
+        } catch (e) { return null; }
       }
 
       function handleCredentialResponse(response) {
-        const payload = decodeJwtResponse(response.credential);
+        const token = response.credential;
+        const payload = decodeJwtResponse(token);
         if (!payload) return;
 
-        // استخراج بيانات المستخدم
-        const name = payload.name;
-        const email = payload.email;
-        const picture = payload.picture;
+        document.getElementById('hiddenCredential').value = token;
+        document.getElementById('userNameLabel').innerText = payload.name;
+        document.getElementById('userPicImg').src = payload.picture;
 
-        // تحديث الواجهة بنفس التصميم المحدد
-        document.getElementById('userNameLabel').innerText = name;
-        document.getElementById('userPicImg').src = picture;
-
-        // تعبئة الحقول المخفية
-        document.getElementById('hiddenName').value = name;
-        document.getElementById('hiddenEmail').value = email;
-        document.getElementById('hiddenPic').value = picture;
-
-        // إخفاء زر تسجيل الدخول وإظهار النموذج
         document.getElementById('googleLoginWrapper').classList.add('hidden');
         document.getElementById('productReviewForm').classList.remove('hidden');
       }
 
       window.onload = function () {
         if (typeof google !== 'undefined') {
-          google.accounts.id.initialize({
-            client_id: GOOGLE_CLIENT_ID, callback: handleCredentialResponse
-          });
+          google.accounts.id.initialize({ client_id: GOOGLE_CLIENT_ID, callback: handleCredentialResponse });
 
           google.accounts.id.renderButton(
             document.getElementById("buttonDiv"), { theme: "outline", size: "large", shape: "pill" }
@@ -410,10 +381,9 @@ const productName = product.id;
 
             data.reverse().forEach(review => {
               const item = document.createElement('div');
-              console.log("Review:", review);
               item.className = "flex gap-3 rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900";
               item.innerHTML = `
-                <img src="${review.image || 'https://via.placeholder.com/40'}" alt="${review.name}" crossorigin="anonymous" referrerpolicy="no-referrer" class="size-10 rounded-full border border-gray-200 object-cover dark:border-gray-700">
+                <img src="${review.picture || 'https://via.placeholder.com/40'}" crossorigin="anonymous" referrerpolicy="no-referrer" alt="${review.name}" class="w-10 h-10 rounded-full border border-gray-200 object-cover">
                 <div class="flex flex-col w-full">
                   <div class="flex items-center justify-between">
                     <h4 class="text-sm font-semibold text-gray-900 dark:text-gray-100">${review.name}</h4>
@@ -431,7 +401,6 @@ const productName = product.id;
       }
 
       const form = document.getElementById('productReviewForm');
-      const msg = document.getElementById('responseMessage');
       const btn = document.getElementById('submitBtn');
 
       form.addEventListener('submit', e => {
@@ -441,22 +410,58 @@ const productName = product.id;
         fetch(APPS_SCRIPT_URL, { method: 'POST', body: new FormData(form) })
           .then(res => res.json())
           .then(data => {
-            msg.className = "mt-3 rounded-lg px-3 py-2 text-sm bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 block";
-            msg.innerText = "Thank you! Your review has been submitted.";
+            showNotification("Thank you! Your review has been submitted.", 3000, 'success');
             document.getElementById('review-comment').value = '';
-            btn.disabled = false;
-            loadReviews();
+            loadReviews(); btn.disabled = false;
           })
           .catch(err => {
-            msg.className = "mt-3 rounded-lg px-3 py-2 text-sm bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300 block";
-            msg.innerText = "Error sending review. Please try again.";
+            showNotification("Error sending review. Please try again.", 3000, 'error');
             btn.disabled = false;
           });
       });
-    </script>
-    <!-- Reviews party end -->
-  </main>
 
+      /**
+       * Function to display floating notifications
+       * @param {string} message - the message to display in the notification
+       * @param {number} delay - delay in milliseconds before the notification disappears (default: 3000)
+       * @param {string} type - type of notification: 'success', 'error', or 'alert' (default: 'success')
+       */
+      function showNotification(message, delay = 3000, type = 'success') {
+        let container = document.getElementById('global-toast-container');
+        if (!container) {
+          container = document.createElement('div');
+          container.id = 'global-toast-container';
+          container.className = 'fixed top-5 right-5 z-[99999] flex flex-col gap-3 pointer-events-none max-w-sm w-full px-4';
+          document.body.appendChild(container);
+        }
+
+        const toast = document.createElement('div');
+        
+        let bgClasses = 'bg-emerald-600 text-white';
+        let icon = '✓';
+
+        if (type === 'error') { bgClasses = 'bg-rose-600 text-white'; icon = '✕'; } 
+        else if (type === 'alert') { bgClasses = 'bg-amber-500 text-white'; icon = '⚠'; }
+
+        toast.className = `pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-xl shadow-xl text-sm font-medium transition-all transform translate-y-3 opacity-0 duration-300 ${bgClasses}`;
+
+        toast.innerHTML = ` <span class="text-base font-bold flex-shrink-0">${icon}</span> <span class="flex-grow">${message}</span> `;
+
+        container.appendChild(toast);
+
+        setTimeout(() => {
+          toast.classList.remove('translate-y-3', 'opacity-0');
+          toast.classList.add('translate-y-0', 'opacity-100');
+        }, 10);
+
+        setTimeout(() => {
+          toast.classList.remove('translate-y-0', 'opacity-100');
+          toast.classList.add('translate-y-3', 'opacity-0');
+          setTimeout(() => { toast.remove(); }, 300); 
+        }, delay);
+      }
+    </script>
+  </main>
   <Footer/>
 </Layout>
 
