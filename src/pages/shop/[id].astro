@@ -13,7 +13,7 @@ export function getStaticPaths() {
 const { product } = Astro.props;
 const siteUrl = import.meta.env.SITE;
 const productUrl = `${siteUrl}shop/${product.id}`;
-const reviewScriptUrl  = 'https://script.google.com/macros/s/AKfycbzfcAd_VQZLDGsxZ0dvDmmCISwptPNtrqVBU1E38GDt4-ZMfp9-e1g4ZeQC6fGI5idu/exec';
+const reviewScriptUrl  = 'https://script.google.com/macros/s/AKfycbzFCGtDb5rwNzuXB493ekxY_p_2G2B9Pol7rWoXwUI5NC51xaXt6rUt3XblSmv3ZkB2/exec'//'https://script.google.com/macros/s/AKfycbzfcAd_VQZLDGsxZ0dvDmmCISwptPNtrqVBU1E38GDt4-ZMfp9-e1g4ZeQC6fGI5idu/exec';
 const productName = product.id;
 ---
 
@@ -266,41 +266,47 @@ const productName = product.id;
       </div>
     </section>
 
-    <!-- Reviews party -->
-    <section id="reviews" class="border-t border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-950" >
+    <!-- Reviews party from google-->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <section id="reviews" class="border-t border-gray-200 bg-gray-50 py-10 dark:border-gray-800 dark:bg-gray-950">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="mt-8 flex flex-col gap-5">
           
-          <div class="flex flex-col w-full">
-            <button id="review-add" class="text-lg font-semibold  text-gray-900 dark:text-gray-100 flex items-center underline cursor-pointer select-none"><IconMessagePlus class="me-2 text-gray-400" /> Write a review </button>
+          <div id="review-model" class="rounded-2xl">
             
-            <div id="review-model" class="rounded-2xl hidden mt-5 border border-gray-200 bg-white p-3 shadow-sm dark:border-gray-800 dark:bg-gray-900 sm:p-7">
-            <form id="productReviewForm" class="">
-              <input type="hidden" name="ProductName" value={productName} />
+            <div id="googleLoginWrapper" class="flex flex-col items-center justify-center rounded-xl border border-dashed border-gray-300 p-6 text-center dark:border-gray-700">
+              <p class="mb-3 text-sm text-gray-600 dark:text-gray-400">يرجى تسجيل الدخول بحساب Google لتشترك برأيك حول هذا المنتج:</p>
+              <div id="buttonDiv"></div>
+            </div>
+
+            <form id="productReviewForm" class="hidden">
+              <input type="hidden" id="productNameInput" name="ProductName" value="اسم المنتج الحالي" />
+              <input type="hidden" id="hiddenName" name="CustomerName" />
+              <input type="hidden" id="hiddenEmail" name="email" />
+              <input type="hidden" id="hiddenPic" name="CustomerPic" />
+              
               <div class="flex gap-1 items-end">
+                <img id="userPicImg" src="" alt="صورة المستخدم" crossorigin="anonymous" referrerpolicy="no-referrer" class="size-16 min-w-16 rounded-full border border-gray-300 object-cover">
+                
                 <div class="flex flex-col w-full">
-
-                  <label for="review-name" class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300"> Your name </label>
-                  <input id="review-name" type="text" name="CustomerName" placeholder="Enter your name" autocomplete="name" required maxlength="80"
-                    class="h-11 w-full rounded-lg border border-gray-300 bg-white px-3 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-gray-700 dark:bg-gray-950 dark:text-gray-100 dark:placeholder:text-gray-500"
-                  />
-
-                  <label for="review-comment" class="mt-2 mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300"> Your review </label>
+                  <label id="userNameLabel" for="review-comment" class="mt-2 mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300"></label>
                   <textarea id="review-comment" name="Comment" placeholder="Tell us what you think about this product..." required maxlength="2000"
-                    class="w-full resize-y rounded-lg border border-gray-300 bg-white px-3 py-3 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-gray-700 dark:bg-gray-950 dark:text-gray-100 dark:placeholder:text-gray-500"
+                    class="w-full h-16 resize-y rounded-lg border border-gray-300 bg-white px-3 py-3 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:placeholder:text-gray-500"
                   ></textarea>
                 </div>
-                <button id="submitBtn" type="submit"
-                  class=" rtl:rotate-180 flex items-center justify-center rounded-full bg-indigo-600 p-3 font-semibold text-white transition hover:bg-indigo-700 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60"
-                ><IconSend2 class="h-5 w-5" /></button>
+
+                <button id="submitBtn" type="submit" class="rtl:rotate-180 flex items-center justify-center rounded-full bg-indigo-600 p-3 font-semibold text-white transition hover:bg-indigo-700 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60">
+                  <IconSend2 />
+                </button>
               </div>
 
-              <p id="responseMessage" class="hidden rounded-lg px-3 py-2 text-sm" role="status" aria-live="polite" ></p>
+              <p id="responseMessage" class="hidden mt-3 rounded-lg px-3 py-2 text-sm" role="status" aria-live="polite"></p>
             </form>
-          </div>
+
           </div>
           
-
+          <!-- قسم عرض التعليقات والآراء -->
           <div class="lg:col-span-2">
             <div class="flex flex-col gap-2 border-b border-gray-200 pb-5 dark:border-gray-800 sm:flex-row sm:items-end sm:justify-between">
               <div>
@@ -311,196 +317,144 @@ const productName = product.id;
                   Reviews submitted for this product.
                 </p>
               </div>
-              <span
-                id="reviewsCount"
-                class="text-sm text-gray-500 dark:text-gray-400"
-              >Loading reviews…</span>
+              <span id="reviewsCount" class="text-sm text-gray-500 dark:text-gray-400">Loading reviews…</span>
             </div>
 
-            <div
-              id="loadingReviews"
-              class="mt-5 rounded-xl border border-gray-200 bg-white px-5 py-8 text-center text-sm text-gray-500 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400"
-            >
+            <div id="loadingReviews" class="mt-5 rounded-xl border border-gray-200 bg-white px-5 py-8 text-center text-sm text-gray-500 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400">
               Loading reviews…
             </div>
 
             <div id="reviewsList" class="mt-5 space-y-4"></div>
           </div>
+
         </div>
       </div>
     </section>
 
+
     <script define:vars={{ productName, reviewScriptUrl }}>
-      const reviewForm = document.getElementById("productReviewForm");
-      const responseMessage = document.getElementById("responseMessage");
-      const submitButton = document.getElementById("submitBtn");
-      const reviewsList = document.getElementById("reviewsList");
-      const loadingReviews = document.getElementById("loadingReviews");
-      const reviewsCount = document.getElementById("reviewsCount");
-      const reviewAddButton = document.getElementById("review-add");
 
-      reviewAddButton?.addEventListener("click", () => {
-        const reviewModel = document.getElementById("review-model");
-        !!reviewModel?.classList.toggle("hidden");
-      });
+      const GOOGLE_CLIENT_ID = "733687980644-vi4o228feo26o6v9j6rgs55ihj9k5cbi.apps.googleusercontent.com";
+      const APPS_SCRIPT_URL = reviewScriptUrl; 
 
-      function showReviewMessage(message, type = "success") {
-        if (!responseMessage) return;
+      document.getElementById('productNameInput').value = productName;
 
-        responseMessage.textContent = message;
-        responseMessage.classList.remove(
-          "hidden",
-          "bg-green-50",
-          "text-green-700",
-          "dark:bg-green-950",
-          "dark:text-green-300",
-          "bg-red-50",
-          "text-red-700",
-          "dark:bg-red-950",
-          "dark:text-red-300"
-        );
-
-        if (type === "success") {
-          responseMessage.classList.add(
-            "bg-green-50",
-            "text-green-700",
-            "dark:bg-green-950",
-            "dark:text-green-300"
-          );
-        } else {
-          responseMessage.classList.add(
-            "bg-red-50",
-            "text-red-700",
-            "dark:bg-red-950",
-            "dark:text-red-300"
-          );
-        }
-      }
-
-      function createReviewCard(review) {
-        const card = document.createElement("article");
-        card.className = "rounded-xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900";
-
-        const topRow = document.createElement("div");
-        topRow.className = "flex flex-wrap items-start justify-between gap-3";
-
-        const customerName = document.createElement("h4");
-        customerName.className = "break-words text-sm font-semibold text-gray-900 dark:text-gray-100";
-        customerName.textContent = String(review.name || "Customer");
-
-        const rating = Math.min(5, Math.max(1, Number.parseInt(review.rating, 10) || 5));
-        const stars = document.createElement("span");
-        stars.className = "shrink-0 text-sm tracking-wide text-amber-500";
-        stars.setAttribute("aria-label", `${rating} out of 5 stars`);
-        stars.textContent = `${"★".repeat(rating)}${"☆".repeat(5 - rating)}`;
-
-        const comment = document.createElement("p");
-        comment.className = "mt-4 whitespace-pre-wrap break-words text-sm leading-7 text-gray-600 dark:text-gray-300";
-        comment.textContent = String(review.comment || "");
-
-        const date = document.createElement("p");
-        date.className = "mt-4 text-xs text-gray-400 dark:text-gray-500";
-
-        if (review.date) {
-          const parsedDate = new Date(review.date);
-          date.textContent = Number.isNaN(parsedDate.getTime()) ? "" : parsedDate.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric", });
-        }
-
-        topRow.append(customerName, stars);
-        card.append(topRow, comment);
-
-        if (date.textContent) card.append(date);
-
-        return card;
-      }
-
-      async function loadReviews() {
-        if (!reviewsList || !loadingReviews || !reviewsCount) return;
-
-        loadingReviews.classList.remove("hidden");
-        loadingReviews.textContent = "Loading reviews…";
-        reviewsList.replaceChildren();
-        reviewsCount.textContent = "Loading…";
-
+      function decodeJwtResponse(token) {
         try {
-          const url = new URL(reviewScriptUrl);
-          url.searchParams.set("ProductName", productName);
-
-          const response = await fetch(url.toString());
-          if (!response.ok) throw new Error("Could not load reviews");
-
-          const data = await response.json();
-          if (!Array.isArray(data)) throw new Error("Unexpected reviews response");
-
-          loadingReviews.classList.add("hidden");
-
-          if (data.length === 0) {
-            reviewsCount.textContent = "0 reviews";
-            loadingReviews.textContent =
-              "No reviews yet. Be the first to share your experience.";
-            loadingReviews.classList.remove("hidden");
-            return;
-          }
-
-          const orderedReviews = [...data].reverse();
-          reviewsCount.textContent =
-            `${orderedReviews.length} ${orderedReviews.length === 1 ? "review" : "reviews"}`;
-
-          const fragment = document.createDocumentFragment();
-          orderedReviews.forEach((review) => {
-            fragment.appendChild(createReviewCard(review));
-          });
-          reviewsList.appendChild(fragment);
-        } catch (error) {
-          reviewsCount.textContent = "Reviews unavailable";
-          loadingReviews.textContent =
-            "We couldn't load reviews right now. Please try again later.";
-          loadingReviews.classList.remove("hidden");
+          var base64Url = token.split('.')[1];
+          var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+          var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) { return '%' + ('0' + c.charCodeAt(0).toString(16)).slice(-2)}).join(''));
+          return JSON.parse(jsonPayload);
+        } catch (e) {
+          console.error("JWT Error:", e); return null;
         }
       }
 
-      reviewForm?.addEventListener("submit", async (event) => {
-        event.preventDefault();
+      function handleCredentialResponse(response) {
+        const payload = decodeJwtResponse(response.credential);
+        if (!payload) return;
 
-        if (!(reviewForm instanceof HTMLFormElement) || !(submitButton instanceof HTMLButtonElement)) {
-          return;
-        }
+        // استخراج بيانات المستخدم
+        const name = payload.name;
+        const email = payload.email;
+        const picture = payload.picture;
 
-        submitButton.disabled = true;
-        submitButton.textContent = "Submitting…";
+        // تحديث الواجهة بنفس التصميم المحدد
+        document.getElementById('userNameLabel').innerText = name;
+        document.getElementById('userPicImg').src = picture;
 
-        try {
-          const formData = new FormData(reviewForm);
-          const response = await fetch(reviewScriptUrl, {
-            method: "POST",
-            body: formData,
+        // تعبئة الحقول المخفية
+        document.getElementById('hiddenName').value = name;
+        document.getElementById('hiddenEmail').value = email;
+        document.getElementById('hiddenPic').value = picture;
+
+        // إخفاء زر تسجيل الدخول وإظهار النموذج
+        document.getElementById('googleLoginWrapper').classList.add('hidden');
+        document.getElementById('productReviewForm').classList.remove('hidden');
+      }
+
+      window.onload = function () {
+        if (typeof google !== 'undefined') {
+          google.accounts.id.initialize({
+            client_id: GOOGLE_CLIENT_ID, callback: handleCredentialResponse
           });
 
-          if (!response.ok) throw new Error("Could not submit review");
-
-          showReviewMessage("Thank you! Your review has been submitted.", "success");
-          reviewForm.reset();
-
-          // Keep the product name attached after resetting the form.
-          const productField = reviewForm.querySelector('input[name="ProductName"]');
-          if (productField) productField.value = productName;
-
-          await loadReviews();
-        } catch (error) {
-          showReviewMessage(
-            "We couldn't submit your review. Please try again.",
-            "error"
+          google.accounts.id.renderButton(
+            document.getElementById("buttonDiv"), { theme: "outline", size: "large", shape: "pill" }
           );
-        } finally {
-          submitButton.disabled = false;
-          submitButton.textContent = "Submit review";
         }
-      });
+        loadReviews();
+      };
 
-      loadReviews();
+      function loadReviews() {
+        const reviewsList = document.getElementById('reviewsList');
+        const loadingReviews = document.getElementById('loadingReviews');
+        const reviewsCount = document.getElementById('reviewsCount');
+
+        fetch(`${APPS_SCRIPT_URL}?ProductName=${encodeURIComponent(productName)}`)
+          .then(res => res.json())
+          .then(data => {
+            loadingReviews.classList.add('hidden');
+            reviewsList.innerHTML = '';
+
+            if (!data || data.length === 0) {
+              reviewsCount.innerText = '0 reviews';
+              reviewsList.innerHTML = `
+                <div class="rounded-xl border border-gray-200 bg-white p-5 text-center text-sm text-gray-500 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400">
+                  No reviews yet for this product. Be the first to leave one!
+                </div>`;
+              return;
+            }
+
+            reviewsCount.innerText = `${data.length} review${data.length > 1 ? 's' : ''}`;
+
+            data.reverse().forEach(review => {
+              const item = document.createElement('div');
+              console.log("Review:", review);
+              item.className = "flex gap-3 rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900";
+              item.innerHTML = `
+                <img src="${review.image || 'https://via.placeholder.com/40'}" alt="${review.name}" crossorigin="anonymous" referrerpolicy="no-referrer" class="size-10 rounded-full border border-gray-200 object-cover dark:border-gray-700">
+                <div class="flex flex-col w-full">
+                  <div class="flex items-center justify-between">
+                    <h4 class="text-sm font-semibold text-gray-900 dark:text-gray-100">${review.name}</h4>
+                    <span class="text-xs text-gray-400">${new Date(review.date).toLocaleDateString()}</span>
+                  </div>
+                  <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">${review.comment}</p>
+                </div>
+              `;
+              reviewsList.appendChild(item);
+            });
+          })
+          .catch(err => {
+            loadingReviews.innerText = 'Failed to load reviews.';
+          });
+      }
+
+      const form = document.getElementById('productReviewForm');
+      const msg = document.getElementById('responseMessage');
+      const btn = document.getElementById('submitBtn');
+
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        btn.disabled = true;
+
+        fetch(APPS_SCRIPT_URL, { method: 'POST', body: new FormData(form) })
+          .then(res => res.json())
+          .then(data => {
+            msg.className = "mt-3 rounded-lg px-3 py-2 text-sm bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 block";
+            msg.innerText = "Thank you! Your review has been submitted.";
+            document.getElementById('review-comment').value = '';
+            btn.disabled = false;
+            loadReviews();
+          })
+          .catch(err => {
+            msg.className = "mt-3 rounded-lg px-3 py-2 text-sm bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300 block";
+            msg.innerText = "Error sending review. Please try again.";
+            btn.disabled = false;
+          });
+      });
     </script>
     <!-- Reviews party end -->
-
   </main>
 
   <Footer/>
