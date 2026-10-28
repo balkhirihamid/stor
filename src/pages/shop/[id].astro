@@ -13,7 +13,7 @@ export function getStaticPaths() {
 const { product } = Astro.props;
 const siteUrl = import.meta.env.SITE;
 const productUrl = `${siteUrl}shop/${product.id}`;
-const reviewScriptUrl  = 'https://script.google.com/macros/s/AKfycbxXiT59GxRniT6JZof5oDmRaHoOVA1GZShiymJkLVuYufVzAB9st6RC7zhqhpcXlw/exec'//'https://script.google.com/macros/s/AKfycbwXQh6Av1B7k8z3Z-C1tMHQJD5-_YlYTUUulSAzE_sNC6Rk-JzYw8VSfD89VF8urPjv/exec'
+const reviewScriptUrl  = 'https://script.google.com/macros/s/AKfycbzKXKBsE3YTtz7dy2AnOS2uhmT-N3v3Nf8bLqgxq2nDe9JLqF1IG3aEIuxPlQvxN-tt/exec'//'https://script.google.com/macros/s/AKfycbwXQh6Av1B7k8z3Z-C1tMHQJD5-_YlYTUUulSAzE_sNC6Rk-JzYw8VSfD89VF8urPjv/exec'
 const productName = product.id;
 ---
 
@@ -280,6 +280,24 @@ const productName = product.id;
             </div>
 
             <form id="productReviewForm" class="hidden">
+              <!-- rating -->
+              <div class="flex w-full justify-center">
+                <div class="rounded-2xl border w-fit border-stone-200 bg-white p-1 shadow-xl shadow-stone-200/50">
+                  <div id="rating" class="relative w-55 shrink-0">
+                    <div class="flex gap-1 text-stone-200" aria-hidden="true">
+                      <svg class="h-10 w-10" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26 6.91 1-5 4.87 1.18 6.87L12 17.76l-6.18 3.24L7 14.13 2 9.26l6.91-1L12 2Z"/></svg> <svg class="h-10 w-10" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26 6.91 1-5 4.87 1.18 6.87L12 17.76l-6.18 3.24L7 14.13 2 9.26l6.91-1L12 2Z"/></svg> <svg class="h-10 w-10" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26 6.91 1-5 4.87 1.18 6.87L12 17.76l-6.18 3.24L7 14.13 2 9.26l6.91-1L12 2Z"/></svg> <svg class="h-10 w-10" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26 6.91 1-5 4.87 1.18 6.87L12 17.76l-6.18 3.24L7 14.13 2 9.26l6.91-1L12 2Z"/></svg> <svg class="h-10 w-10" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26 6.91 1-5 4.87 1.18 6.87L12 17.76l-6.18 3.24L7 14.13 2 9.26l6.91-1L12 2Z"/></svg>
+                    </div>
+                    <div id="gold-fill" class="absolute inset-y-0 left-0 overflow-hidden pointer-events-none" style="width:0%">
+                      <div class="flex w-55 gap-1 text-amber-400" style="filter:drop-shadow(0 1px 2px #f59e0b40)">
+                        <svg class="h-10 w-10 shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26 6.91 1-5 4.87 1.18 6.87L12 17.76l-6.18 3.24L7 14.13 2 9.26l6.91-1L12 2Z"/></svg> <svg class="h-10 w-10 shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26 6.91 1-5 4.87 1.18 6.87L12 17.76l-6.18 3.24L7 14.13 2 9.26l6.91-1L12 2Z"/></svg> <svg class="h-10 w-10 shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26 6.91 1-5 4.87 1.18 6.87L12 17.76l-6.18 3.24L7 14.13 2 9.26l6.91-1L12 2Z"/></svg> <svg class="h-10 w-10 shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26 6.91 1-5 4.87 1.18 6.87L12 17.76l-6.18 3.24L7 14.13 2 9.26l6.91-1L12 2Z"/></svg> <svg class="h-10 w-10 shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26 6.91 1-5 4.87 1.18 6.87L12 17.76l-6.18 3.24L7 14.13 2 9.26l6.91-1L12 2Z"/></svg>
+                      </div>
+                    </div>
+                    <input type="hidden" name="Rating" id="rating-input-hidden" value="2.5" />
+                    <input type="range" id="rating-input" min="0" max="10" step="1" value="5" aria-label="Rate" class="absolute inset-0 h-full w-full opacity-0 cursor-pointer" style="touch-action:pan-y">
+                  </div>
+                </div>
+              </div>
+
               <input type="hidden" name="ProductName" id="productNameInput" value="" />
               <input type="hidden" name="credential" id="hiddenCredential" />
               <div class="flex gap-1 items-end">
@@ -324,6 +342,20 @@ const productName = product.id;
       const GOOGLE_CLIENT_ID = "733687980644-vi4o228feo26o6v9j6rgs55ihj9k5cbi.apps.googleusercontent.com";
       const APPS_SCRIPT_URL = reviewScriptUrl; 
       document.getElementById('productNameInput').value = productName;
+
+      const input = document.getElementById('rating-input');
+      const fill = document.getElementById('gold-fill');
+      const ratingValue = document.getElementById('rating-input-hidden');
+
+      function updateRating() {
+        const step = Number(input.value);
+        const rating = step / 2;
+        fill.style.width = `${step * 10}%`;
+        fill.style.clipPath = `inset(0 2px 0 0)`;
+        ratingValue.value = rating.toFixed(1);
+      }
+      input.addEventListener('input', updateRating);
+      updateRating();
 
       function decodeJwtResponse(token) {
         try {
@@ -419,7 +451,7 @@ const productName = product.id;
             loadReviews(); btn.disabled = false;
           })
           .catch(err => {
-            showNotification("Error sending review. Please try again.", 3000, 'error');
+            showNotification("Error sending review. Please try again.", 3000, 'error'); 
             btn.disabled = false;
           });
       });
